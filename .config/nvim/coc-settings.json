@@ -1,0 +1,44 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  },
+
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.enableHighlightLineNumber": true,
+  "codeLens.enable": true,
+  "signature.enable": true,
+  "coc.preferences.snippets.enable": true,
+  "intelephense.command": "intelephense",
+  "intelephense.args": "['--stdio']",
+  "intelephense.files.associations": [
+    "*.php",
+    "*.phtml",
+    "*.inc",
+    "*.module",
+    "*.theme",
+    "*.install"
+  ],
+  "intelephense.files.exclude": [
+    "**/.git/**",
+    "**/.svn/**",
+    "**/.hg/**",
+    "**/CVS/**",
+    "**/.DS_Store/**",
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**/{Tests,tests}/**",
+    "**/composer/**/{Tests,tests}/**",
+    "**/update-db/**",
+    "**/.data/**",
+    "/framework/**",
+    "**/vendor/**/{Example,example,Examples,examples}/**",
+    "**/composer/**/{Example,example,Examples,examples}/**",
+    "**/composer/composer/**"
+  ]
+}
