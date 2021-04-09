@@ -1,0 +1,25 @@
+# General stuff
+.DS_Store
+/.idea
+/.vscode
+/.local.vimrc
+/.vimspector.json
+/.local.vimrc
+
+# ddev files
+/.ddev
+.ddev
+settings.ddev.php
+ddev_drush_settings.php
+/advagg_css
+/advagg_js
+docroot/advagg_js
+docroot/advagg_css
+sites/default/ddev_drush_settings\.php
+sites/default/settings\.ddev\.php
+sites/default/.gitignore
+
+# docksal stuff
+.docksal/
+/sites/default/settings.site.php
+/sites/default/settings.local.php
