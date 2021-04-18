@@ -48,6 +48,7 @@ Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'StanAngeloff/php.vim'
 Plug 'sbdchd/neoformat'
+Plug 'jiangmiao/auto-pairs'
 " Plug 'fatih/vim-go'
 
 call plug#end()
@@ -507,8 +508,8 @@ nnoremap <leader>H :<C-u>FzfPreviewJumpsRpc<CR>
 nnoremap <leader>u :UndotreeShow<CR>
 
 " Splits
-nmap <silent> <leader>- :vsp<CR>
-nmap <silent> <leader>. :sp<CR>
+nmap <silent> <leader>- :sp<CR>
+nmap <silent> <leader>. :vsp<CR>
 
 " Move between splits.
 nmap <silent> <leader><Up> :wincmd k<CR>

@@ -21,5 +21,6 @@ sites/default/.gitignore
 
 # docksal stuff
 .docksal/
+sites/default/files/
 /sites/default/settings.site.php
 /sites/default/settings.local.php
