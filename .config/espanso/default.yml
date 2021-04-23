@@ -1,0 +1,34 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # Dates
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Shell commands
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo Hello from your shell"
+
+  # Lorem ipsum
+  - trigger: ":lorem"
+    replace: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mi libero, interdum eget molestie malesuada, eleifend in ligula. Nulla vestibulum diam tortor. Nunc viverra rutrum consectetur. Sed vitae libero sit amet diam mattis mollis. Praesent sit amet cursus risus. Nulla facilisi. Proin mattis ligula nec elit fermentum facilisis. Aenean tincidunt aliquam tortor, sed maximus purus ornare rutrum. Phasellus sit amet libero nec metus suscipit ultrices. Praesent quam sapien, faucibus ut tincidunt et, tempus luctus nunc. Sed fringilla sollicitudin turpis eget semper. Duis eu condimentum eros. Vivamus sollicitudin commodo nibh non commodo. Proin consectetur nibh mauris, a vulputate nunc accumsan sed. Morbi et nibh est. "

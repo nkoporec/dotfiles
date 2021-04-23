@@ -31,13 +31,13 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'moll/vim-bbye'
 Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
+Plug 'akinsho/nvim-bufferline.lua'
 " Plug 'airblade/vim-rooter'
 Plug 'thinca/vim-localrc'
 " Plug 'arcticicestudio/nord-vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'mbbill/undotree'
 Plug 'vimlab/split-term.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
 
 " Language tooling
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -48,7 +48,7 @@ Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'StanAngeloff/php.vim'
 Plug 'sbdchd/neoformat'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 " Plug 'fatih/vim-go'
 
 call plug#end()
@@ -239,7 +239,9 @@ let g:gitgutter_sign_priority = 5
 let NERDTreeShowHidden=1
 
 " CtrlSF
-let g:ctrlsf_search_mode='sync'
+let g:ctrlsf_search_mode='async'
+let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules', 'vendor']
+let g:ctrlsf_backend = 'rg'
 
 " Drupal 
 if has("autocmd")
@@ -311,15 +313,6 @@ augroup myCmds
 augroup END
 
 " for vim 8
-if (has("termguicolors"))
-	set termguicolors
-endif
-if !has("gui_running")
-	set t_Co=256
-	if !has("nvim")
-		set term=screen-256color
-	end
-endif
 
 " Dark
 syntax enable
@@ -347,11 +340,16 @@ com! Q q
 " FZF
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) 
 " Use vim-devicons
 let g:fzf_preview_use_dev_icons = 1
 " }}}
 "
 " Keymap {{{
+
+" FZF search
+nnoremap <silent> <Leader>s :Rg<CR>
 
 " For when you forget to sudo.. Really Write the file.
 cmap w!! w !sudo tee % >/dev/null
@@ -369,7 +367,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Closes a buffer without messing up windows, layouts, etc.
-nnoremap <leader>q :Bdelete<CR>
+nnoremap <leader>q :Bdelete!<CR>
 
 " Clear searches on ESC.
 nnoremap <esc> :let @/ = ""<return><esc>
@@ -392,8 +390,8 @@ nnoremap <leader>h :History<CR>
 " nnoremap <leader>d <cmd>lua require('telescope.builtin').file_browser()<cr>
 
 " CtrlSF
-nmap     <leader>S <Plug>CtrlSFPrompt
-nnoremap <leader>s :<C-u>FzfPreviewProjectGrepRpc<Space>
+nmap     <leader>sf <Plug>CtrlSFPrompt
+nnoremap <leader>sg :<C-u>FzfPreviewProjectGrepRpc<Space>
 
 "Startify
 map <leader>e :Startify<CR>
@@ -417,6 +415,8 @@ lua <<EOF
 require('numb').setup()
 EOF
 
+lua require'bufferline'.setup{}
+
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
@@ -436,29 +436,6 @@ if has("gui_vimr")
 	set number
 endif
 
-" TreeSitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-highlight = {
-enable = true,
-disable = { "php",},
-},
-indent = {
-enable = true
-},
-incremental_selection = {
-enable = false,
-keymaps = {
-init_selection = "gnn",
-node_incremental = "grn",
-scope_incremental = "grc",
-node_decremental = "grm",
-},
-},
-}
-EOF
-
 " NERDTree Toggle
 function MyNerdToggle()
 	if &filetype == 'nerdtree'
@@ -468,7 +445,7 @@ function MyNerdToggle()
 	endif
 endfunction
 
-nnoremap <leader>D :call MyNerdToggle()<CR>
+nnoremap <leader>d :call MyNerdToggle()<CR>
 
 " Viminspector
 nmap <F5> <Plug>VimspectorContinue
