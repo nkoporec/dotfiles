@@ -31,25 +31,25 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'moll/vim-bbye'
 Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
-Plug 'akinsho/nvim-bufferline.lua'
-" Plug 'airblade/vim-rooter'
 Plug 'thinca/vim-localrc'
-" Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'morhetz/gruvbox'
 Plug 'mbbill/undotree'
 Plug 'vimlab/split-term.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Language tooling
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim', {'branch': 'master'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim', {'branch': 'master'}
 Plug 'sheerun/vim-polyglot'
 Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'StanAngeloff/php.vim'
 Plug 'sbdchd/neoformat'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'fatih/vim-go'
 
 call plug#end()
 " }}}
@@ -139,19 +139,19 @@ set noshowmode
 set autoread
 
 " For faster vim in terminal
-set regexpengine=1
-set noshowcmd
-" set ttimeoutlen=5
-set timeoutlen=1000
-set ttimeoutlen=0
-let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-set noshowmatch         " Don't match parentheses/brackets
-" set nocursorline
-set nocursorcolumn      " Don't paint cursor column
-set lazyredraw          " Wait to redraw
-set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-let html_no_rendering=1 " Don't render italic, bold, links in HTML
-set redrawtime=10000
+" set regexpengine=1
+" set noshowcmd
+" " set ttimeoutlen=5
+" set timeoutlen=1000
+" set ttimeoutlen=0
+" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+" set noshowmatch         " Don't match parentheses/brackets
+" " set nocursorline
+" set nocursorcolumn      " Don't paint cursor column
+" set lazyredraw          " Wait to redraw
+" set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+" let html_no_rendering=1 " Don't render italic, bold, links in HTML
+" set redrawtime=10000
 
 " Set split behavior.
 set splitright  " vsplit opens new window to the right
@@ -191,16 +191,6 @@ augroup END
 " Better display for messages for CoC
 set cmdheight=2
 
-" Gui vim settings
-if has('gui_running')
-	" No toolbar
-	set guioptions-=T  " no toolbar
-	set nomousehide
-	
-	" For terminal user.
-	let $USER = "nkoporec"
-endif
-
 "Lint setup"
 if has('statusline')
 	set laststatus=2
@@ -213,12 +203,6 @@ if has('statusline')
 	set statusline+=%#warningmsg#
 	set statusline+=%*
 	" set statusline+=%=%-14.(%l,%c%V%)\ %p% " Right aligned file nav info
-endif
-
-
-" This is a fix to correct the $PATH variable inside vim
-if $PATH !~ "\.composer"
-	let $PATH ="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Apple/bin:/Users/nkoporec/.composer/vendor/bin:/Users/nkoporec/go/bin:" . $PATH
 endif
 
 " Move swap,backup and undo files in a special directory, so it won't use the current directory
@@ -277,16 +261,6 @@ let g:neoformat_php_phpcbf = {
 			\ }
 let g:neoformat_enabled_php = ['phpcbf']
 nnoremap <leader>nf :Neoformat<cr>
-" Autoformat on save.
-" augroup fmt
-" 	autocmd!
-" 	autocmd BufWritePre * undojoin | Neoformat
-" augroup END
-
-
-" Prettier
-" let g:prettier#autoformat = 1
-" let g:prettier#autoformat_require_pragma = 0
 
 " SplitTerm settings
 let g:split_term_default_shell = "zsh"
@@ -312,26 +286,17 @@ augroup myCmds
 	autocmd VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
-" for vim 8
-
 " Dark
 syntax enable
 set termguicolors
-let &t_8f = "\e[38;2;%lu;%lu;%lum"
-let &t_8b = "\e[48;2;%lu;%lu;%lum"
 set background=dark
 set t_Co=256
-syntax on
 colorscheme palenight
-
-highlight Normal ctermbg=none
-highlight NonText ctermbg=none
-highlight Normal guibg=none
-highlight NonText guibg=none
-
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
-let g:nord_uniform_status_lines = 0
+
+" Transparant background
+hi Normal guibg=NONE ctermbg=NONE
 
 " Custom commands
 com! W w
@@ -344,6 +309,35 @@ command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-hea
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) 
 " Use vim-devicons
 let g:fzf_preview_use_dev_icons = 1
+
+" Numb
+lua <<EOF
+require('numb').setup()
+EOF
+
+" TreeSitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+highlight = {
+enable = true,
+disable = { "php","css"},
+},
+indent = {
+enable = true
+},
+incremental_selection = {
+enable = false,
+keymaps = {
+init_selection = "gnn",
+node_incremental = "grn",
+scope_incremental = "grc",
+node_decremental = "grm",
+},
+},
+}
+EOF
+
 " }}}
 "
 " Keymap {{{
@@ -382,13 +376,6 @@ nnoremap <leader>b :Buffers<CR>
 
 nnoremap <leader>h :History<CR>
 
-
-" Telescope
-" nnoremap <leader>F <cmd>lua require('telescope.builtin').find_files()<cr>
-" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-" nnoremap <leader>B <cmd>lua require('telescope.builtin').buffers()<cr>
-" nnoremap <leader>d <cmd>lua require('telescope.builtin').file_browser()<cr>
-
 " CtrlSF
 nmap     <leader>sf <Plug>CtrlSFPrompt
 nnoremap <leader>sg :<C-u>FzfPreviewProjectGrepRpc<Space>
@@ -400,22 +387,13 @@ map <leader>e :Startify<CR>
 nnoremap <leader>yy :t.<CR>
 
 "nvimLSP
-" let g:completion_enable_snippet = 'snippets.nvim'
-" set iskeyword=@,48-57,_,192-255,$
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-" let g:completion_trigger_character = ['.', '::', '$', '>', ':', '\\', '/', '*', '<']
-" " let g:completion_timer_cycle = 30
-" lua require'nvim_lsp'.intelephense.setup{on_attach=require'completion'.on_attach, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
-" lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
-" lua require'nvim_lsp'.gopls.setup{ on_attach=require'completion'.on_attach }
-" lua require'nvim_lsp'.cssls.setup{ on_attach=require'completion'.on_attach }
-
-" Numb
-lua <<EOF
-require('numb').setup()
-EOF
-
-lua require'bufferline'.setup{}
+set iskeyword=@,48-57,_,192-255,$
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_trigger_character = ['.', '::', '$', '>', ':', '\\', '/', '*', '<']
+lua require'lspconfig'.intelephense.setup{on_attach=require'completion'.on_attach, autostart = true, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
+lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach, autostart = true }
+lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach, autostart = true }
+lua require'lspconfig'.cssls.setup{ on_attach=require'completion'.on_attach, autostart = true }
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
@@ -431,10 +409,6 @@ nnoremap p "+p
 nnoremap P "+P
 vnoremap p "+p
 vnoremap P "+P
-
-if has("gui_vimr")
-	set number
-endif
 
 " NERDTree Toggle
 function MyNerdToggle()
@@ -499,47 +473,47 @@ nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
 " coc.nvim
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gr <Plug>(coc-references)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent><nowait> <leader>T  :<C-u>CocList outline<cr>
-nnoremap <silent><nowait> <leader>fs  :<C-u>CocList -I symbols<cr>
+"nmap <silent> <leader>gd <Plug>(coc-definition)
+"nmap <silent> <leader>gr <Plug>(coc-references)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nnoremap <silent><nowait> <leader>T  :<C-u>CocList outline<cr>
+"nnoremap <silent><nowait> <leader>fs  :<C-u>CocList -I symbols<cr>
 
-" Formatting selected code.
-" Apply AutoFix to problem on the current line.
-nmap <leader>lf  <Plug>(coc-fix-current)
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"" Formatting selected code.
+"" Apply AutoFix to problem on the current line.
+"nmap <leader>lf  <Plug>(coc-fix-current)
+"" Highlight the symbol and its references when holding the cursor.
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+"" Use K to show documentation in preview window.
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	elseif (coc#rpc#ready())
-		call CocActionAsync('doHover')
-	else
-		execute '!' . &keywordprg . " " . expand('<cword>')
-	endif
-endfunction
+"function! s:show_documentation()
+"	if (index(['vim','help'], &filetype) >= 0)
+"		execute 'h '.expand('<cword>')
+"	elseif (coc#rpc#ready())
+"		call CocActionAsync('doHover')
+"	else
+"		execute '!' . &keywordprg . " " . expand('<cword>')
+"	endif
+"endfunction
 
-""to make coc.nvim format your code on <cr>:
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"""to make coc.nvim format your code on <cr>:
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " exit :term with ESC
 tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
 
 " nvimLSP
-" nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
-" nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
-" nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <leader>grr :lua vim.lsp.buf.references()<CR>
-" nnoremap <leader>grn :lua vim.lsp.buf.rename()<CR>
-" nnoremap <leader>gh :lua vim.lsp.buf.hover()<CR>
-" nnoremap <leader>gca :lua vim.lsp.buf.code_action()<CR>
-" nnoremap <leader>gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>grr :lua vim.lsp.buf.references()<CR>
+nnoremap <leader>grn :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>gh :lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>gca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -558,4 +532,10 @@ tnoremap <leader>h <c-\><c-n><c-w>h
 tnoremap <leader>j <c-\><c-n><c-w>j
 tnoremap <leader>k <c-\><c-n><c-w>k
 tnoremap <leader>l <c-\><c-n><c-w>l
+
+" Auto wrap selected words into dd, console.log, log.fatal
+vnoremap L yoconsole.log(‘<ESC>pa: ’, <ESC>pa);<ESC>
+vnoremap D yodd(<ESC>pa);<ESC>
+vnoremap F yolog.Fatal(<ESC>pa)<ESC>
+
 " }}}

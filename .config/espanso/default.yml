@@ -29,6 +29,10 @@ matches:
         params:
           cmd: "echo Hello from your shell"
 
+  # Foo - bar
+  - trigger: ":foobar"
+    replace: "$foo = 0;\r$bar = $foo;"
+
   # Lorem ipsum
   - trigger: ":lorem"
     replace: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mi libero, interdum eget molestie malesuada, eleifend in ligula. Nulla vestibulum diam tortor. Nunc viverra rutrum consectetur. Sed vitae libero sit amet diam mattis mollis. Praesent sit amet cursus risus. Nulla facilisi. Proin mattis ligula nec elit fermentum facilisis. Aenean tincidunt aliquam tortor, sed maximus purus ornare rutrum. Phasellus sit amet libero nec metus suscipit ultrices. Praesent quam sapien, faucibus ut tincidunt et, tempus luctus nunc. Sed fringilla sollicitudin turpis eget semper. Duis eu condimentum eros. Vivamus sollicitudin commodo nibh non commodo. Proin consectetur nibh mauris, a vulputate nunc accumsan sed. Morbi et nibh est. "
