@@ -22,7 +22,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', {'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nacro90/numb.nvim'
@@ -35,10 +34,9 @@ Plug 'thinca/vim-localrc'
 Plug 'arcticicestudio/nord-vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'ayu-theme/ayu-vim'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'mbbill/undotree'
-Plug 'vimlab/split-term.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
+" Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -114,7 +112,8 @@ set scrolljump=5
 set scrolloff=3
 
 " Turn on line numbering.
-set number
+" set number
+set nonumber
 
 " Disable fold
 set foldcolumn=0
@@ -139,19 +138,17 @@ set noshowmode
 set autoread
 
 " For faster vim in terminal
-" set regexpengine=1
-" set noshowcmd
-" " set ttimeoutlen=5
-" set timeoutlen=1000
-" set ttimeoutlen=0
-" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-" set noshowmatch         " Don't match parentheses/brackets
-" " set nocursorline
-" set nocursorcolumn      " Don't paint cursor column
-" set lazyredraw          " Wait to redraw
-" set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-" let html_no_rendering=1 " Don't render italic, bold, links in HTML
-" set redrawtime=10000
+set regexpengine=1
+set noshowcmd
+set timeoutlen=1000
+set ttimeoutlen=0
+let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+set noshowmatch         " Don't match parentheses/brackets
+set nocursorcolumn      " Don't paint cursor column
+set lazyredraw          " Wait to redraw
+set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+let html_no_rendering=1 " Don't render italic, bold, links in HTML
+set redrawtime=10000
 
 " Set split behavior.
 set splitright  " vsplit opens new window to the right
@@ -172,10 +169,23 @@ set nowritebackup
 set exrc
 set secure
 
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
 " NERDTree
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeQuitOnOpen = 1
+let NERDTreeShowHidden=1
+
+" NERDTree Toggle
+function MyNerdToggle()
+	if &filetype == 'nerdtree'
+		:NERDTreeToggle
+	else
+		:NERDTreeFind
+	endif
+endfunction
 
 " Auto close NERDTree if only 1 window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -219,9 +229,6 @@ let g:startify_bookmarks = [
 " Make a lower sign priority
 let g:gitgutter_sign_priority = 5
 
-" NERDTree
-let NERDTreeShowHidden=1
-
 " CtrlSF
 let g:ctrlsf_search_mode='async'
 let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules', 'vendor']
@@ -247,6 +254,8 @@ function! RunAutoPHP()
 	endif
 endfunction
 
+let g:neomake_logfile = '/tmp/neomake.log'
+
 autocmd! BufWritePost * call RunAutoPHP()
 
 " Neoformat
@@ -261,9 +270,6 @@ let g:neoformat_php_phpcbf = {
 			\ }
 let g:neoformat_enabled_php = ['phpcbf']
 nnoremap <leader>nf :Neoformat<cr>
-
-" SplitTerm settings
-let g:split_term_default_shell = "zsh"
 
 " Enable mouse support in terminal.
 set mouse=a
@@ -303,10 +309,12 @@ com! W w
 com! Q q
 
 " FZF
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) 
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+command! -bang -nargs=+ -complete=dir Rag call fzf#vim#ag_raw(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
 " Use vim-devicons
 let g:fzf_preview_use_dev_icons = 1
 
@@ -315,28 +323,15 @@ lua <<EOF
 require('numb').setup()
 EOF
 
-" TreeSitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-highlight = {
-enable = true,
-disable = { "php","css"},
-},
-indent = {
-enable = true
-},
-incremental_selection = {
-enable = false,
-keymaps = {
-init_selection = "gnn",
-node_incremental = "grn",
-scope_incremental = "grc",
-node_decremental = "grm",
-},
-},
-}
-EOF
+"nvimLSP
+set iskeyword=@,48-57,_,192-255,$
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_trigger_character = ['.', '::', '$', '>', ':', '\\', '/', '*', '<']
+lua require'lspconfig'.intelephense.setup{on_attach=require'completion'.on_attach, autostart = true, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
+lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach, autostart = true }
+lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach, autostart = true }
+lua require'lspconfig'.cssls.setup{ on_attach=require'completion'.on_attach, autostart = true }
+
 
 " }}}
 "
@@ -372,6 +367,7 @@ vnoremap <leader>7 :Commentary<CR>
 
 " Use fzf
 nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :GFiles<CR>
 nnoremap <leader>b :Buffers<CR>
 
 nnoremap <leader>h :History<CR>
@@ -386,18 +382,6 @@ map <leader>e :Startify<CR>
 " Duplicate line
 nnoremap <leader>yy :t.<CR>
 
-"nvimLSP
-set iskeyword=@,48-57,_,192-255,$
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_trigger_character = ['.', '::', '$', '>', ':', '\\', '/', '*', '<']
-lua require'lspconfig'.intelephense.setup{on_attach=require'completion'.on_attach, autostart = true, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
-lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach, autostart = true }
-lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach, autostart = true }
-lua require'lspconfig'.cssls.setup{ on_attach=require'completion'.on_attach, autostart = true }
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
 " " Copy to clipboard
 vnoremap  y  "+y
 nnoremap  Y  "+yg_
@@ -409,15 +393,6 @@ nnoremap p "+p
 nnoremap P "+P
 vnoremap p "+p
 vnoremap P "+P
-
-" NERDTree Toggle
-function MyNerdToggle()
-	if &filetype == 'nerdtree'
-		:NERDTreeToggle
-	else
-		:NERDTreeFind
-	endif
-endfunction
 
 nnoremap <leader>d :call MyNerdToggle()<CR>
 
@@ -523,7 +498,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " tnoremap <Esc> <C-\><C-n>
 tnoremap <leader><Esc> <Esc>
 nnoremap <leader>t :exec 'split' <Bar> resize 10 <Bar> terminal<CR>
-
 tnoremap <leader><Up> <c-\><c-n><c-w>h
 tnoremap <leader><Down> <c-\><c-n><c-w>j
 tnoremap <leader><Left> <c-\><c-n><c-w>k
@@ -534,7 +508,7 @@ tnoremap <leader>k <c-\><c-n><c-w>k
 tnoremap <leader>l <c-\><c-n><c-w>l
 
 " Auto wrap selected words into dd, console.log, log.fatal
-vnoremap L yoconsole.log(‘<ESC>pa: ’, <ESC>pa);<ESC>
+vnoremap L yoconsole.log(<ESC>pa);<ESC>
 vnoremap D yodd(<ESC>pa);<ESC>
 vnoremap F yolog.Fatal(<ESC>pa)<ESC>
 
