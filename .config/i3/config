@@ -162,6 +162,7 @@ bar {
 # ------------------------------------------
 # CUSTOM AUTOSTART
 # ------------------------------------------
+exec --no-startup-id picom --experimental-backends -f 
 exec --no-startup-id nm-applet
 exec --no-startup-id xset r rate 130 25
 exec --no-startup-id espanso start
