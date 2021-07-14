@@ -530,5 +530,7 @@ vnoremap F yolog.Fatal(<ESC>pa)<ESC>
 " Dispatch
 nnoremap <leader>D :Dispatch<Space>
 
-
+"Resize
+nnoremap <Leader>= :vertical resize +5<CR>
+nnoremap <Leader><Del> :vertical resize -5<CR>
 " }}}

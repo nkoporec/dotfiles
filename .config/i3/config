@@ -164,7 +164,8 @@ bar {
 # ------------------------------------------
 exec --no-startup-id picom --experimental-backends -f 
 exec --no-startup-id nm-applet
-exec --no-startup-id xset r rate 130 25
+exec --no-startup-id blueman-applet
+exec --no-startup-id xset r rate 115 25
 exec --no-startup-id espanso start
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 exec --no-startup-id nitrogen --restore
