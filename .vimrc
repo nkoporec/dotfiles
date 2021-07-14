@@ -370,6 +370,13 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+" Lualine
+lua <<EOF
+require('lualine').setup{
+	options = { theme = 'nord' }
+}
+EOF
+
 
 " }}}
 "
