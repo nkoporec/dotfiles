@@ -32,21 +32,22 @@ Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-localrc'
 Plug 'arcticicestudio/nord-vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'ayu-theme/ayu-vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'mbbill/undotree'
-" Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
+Plug 'folke/lsp-colors.nvim'
+Plug 'hoob3rt/lualine.nvim'
+Plug 'akinsho/nvim-bufferline.lua'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-dispatch'
 
 " Language tooling
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim', {'branch': 'master'}
+Plug 'hrsh7th/nvim-compe'
 Plug 'sheerun/vim-polyglot'
 Plug 'puremourning/vimspector', {'branch': 'master'}
-Plug 'arnaud-lb/vim-php-namespace'
-Plug 'StanAngeloff/php.vim'
 Plug 'sbdchd/neoformat'
 
 call plug#end()
@@ -177,6 +178,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeQuitOnOpen = 1
 let NERDTreeShowHidden=1
+let g:NERDTreeWinPos = "right"
 
 " NERDTree Toggle
 function MyNerdToggle()
@@ -297,7 +299,7 @@ syntax enable
 set termguicolors
 set background=dark
 set t_Co=256
-colorscheme palenight
+colorscheme nord
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
 
@@ -324,13 +326,49 @@ require('numb').setup()
 EOF
 
 "nvimLSP
-set iskeyword=@,48-57,_,192-255,$
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_trigger_character = ['.', '::', '$', '>', ':', '\\', '/', '*', '<']
-lua require'lspconfig'.intelephense.setup{on_attach=require'completion'.on_attach, autostart = true, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
-lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach, autostart = true }
-lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach, autostart = true }
-lua require'lspconfig'.cssls.setup{ on_attach=require'completion'.on_attach, autostart = true }
+lua require'lspconfig'.intelephense.setup{autostart = true, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
+lua require'lspconfig'.tsserver.setup{autostart = true }
+lua require'lspconfig'.gopls.setup{autostart = true }
+lua require'lspconfig'.cssls.setup{autostart = true }
+
+"nvim compe
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.resolve_timeout = 800
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 100
+let g:compe.documentation = v:true
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.vsnip = v:true
+let g:compe.source.ultisnips = v:true
+let g:compe.source.luasnip = v:true
+let g:compe.source.emoji = v:true
+
+" Treesiter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+    disable = { "php"},
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 
 " }}}
@@ -447,36 +485,6 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
-" coc.nvim
-"nmap <silent> <leader>gd <Plug>(coc-definition)
-"nmap <silent> <leader>gr <Plug>(coc-references)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nnoremap <silent><nowait> <leader>T  :<C-u>CocList outline<cr>
-"nnoremap <silent><nowait> <leader>fs  :<C-u>CocList -I symbols<cr>
-
-"" Formatting selected code.
-"" Apply AutoFix to problem on the current line.
-"nmap <leader>lf  <Plug>(coc-fix-current)
-"" Highlight the symbol and its references when holding the cursor.
-"autocmd CursorHold * silent call CocActionAsync('highlight')
-
-"" Use K to show documentation in preview window.
-"nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-"function! s:show_documentation()
-"	if (index(['vim','help'], &filetype) >= 0)
-"		execute 'h '.expand('<cword>')
-"	elseif (coc#rpc#ready())
-"		call CocActionAsync('doHover')
-"	else
-"		execute '!' . &keywordprg . " " . expand('<cword>')
-"	endif
-"endfunction
-
-"""to make coc.nvim format your code on <cr>:
-"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 " exit :term with ESC
 tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
 
@@ -511,5 +519,9 @@ tnoremap <leader>l <c-\><c-n><c-w>l
 vnoremap L yoconsole.log(<ESC>pa);<ESC>
 vnoremap D yodd(<ESC>pa);<ESC>
 vnoremap F yolog.Fatal(<ESC>pa)<ESC>
+
+" Dispatch
+nnoremap <leader>D :Dispatch<Space>
+
 
 " }}}
