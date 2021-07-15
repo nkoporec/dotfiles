@@ -317,6 +317,38 @@ command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-hea
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 command! -bang -nargs=+ -complete=dir Rag call fzf#vim#ag_raw(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
+" -----------------------------------------------------------------------------
+"  Project search
+" -----------------------------------------------------------------------------
+
+let g:project_search_command = 'rg --column --line-number --no-heading --color=always --smart-case --hidden -g !.git'
+let g:global_search_command = 'rg --column --line-number --no-heading --color=always --smart-case --no-ignore -g !.git'
+
+nnoremap <leader>/ :call Search(g:project_search_command.' --fixed-strings -- %s', 'Project search: ')<CR>
+nnoremap <leader>// :call Search(g:project_search_command.' -- %s', 'Project search [r]: ')<CR>
+nnoremap <leader>? :call Search(g:global_search_command.' --fixed-strings -- %s', 'Global search: ')<CR>
+nnoremap <leader>?? :call Search(g:global_search_command.' -- %s', 'Global search [r]: ')<CR>
+
+function! Search(base_search_command, search_prompt)
+  let initial_search_command = printf(a:base_search_command, '')
+
+  let reload_search_command = printf(a:base_search_command, '{q}')
+
+  let spec = {'options': [
+      \ '--disabled',
+      \ '--prompt',
+      \ a:search_prompt,
+      \ '--bind',
+      \ 'change:reload:'.reload_search_command.' || true',
+      \ '--bind',
+      \ 'ctrl-f:unbind(change)+change-prompt(Result filter: )+enable-search+clear-query',
+      \ ]}
+
+  call fzf#vim#grep(initial_search_command, 1, fzf#vim#with_preview(spec))
+endfunction
+
+
+
 " Use vim-devicons
 let g:fzf_preview_use_dev_icons = 1
 
