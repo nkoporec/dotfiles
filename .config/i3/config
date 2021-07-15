@@ -204,14 +204,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+d exec rofi -modi drun -show drun -display-drun "Apps : " -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar \
-                -show-icons -theme "slate" -font "Noto Sans Regular 11"
+                -show-icons -theme "gruvbox-dark" -font "Noto Sans Regular 11"
 
 
 ## rofi bindings for window menu (two bindings F10/$mod+t)
 
 bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 4 \
                 -lines 10 -padding 50 -hide-scrollbar \
-                -show-icons -theme "slate" -font "Noto Sans Regular 11"
+                -show-icons -theme "gruvbox-dark" -font "Noto Sans Regular 11"
 
 
 ## App shortcuts
