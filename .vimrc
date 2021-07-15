@@ -32,7 +32,9 @@ Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-localrc'
 Plug 'arcticicestudio/nord-vim'
-Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+Plug 'rktjmp/lush.nvim'
+Plug 'npxbr/gruvbox.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
 Plug 'folke/lsp-colors.nvim'
@@ -299,9 +301,24 @@ syntax enable
 set termguicolors
 set background=dark
 set t_Co=256
-colorscheme nord
+colorscheme gruvbox
+
 let g:enable_bold_font = 1
-let g:enable_italic_font = 1
+let g:enable_italic_font = 0
+
+let g:gruvbox_material_transparent_background = 1
+let g:gruvbox_material_better_performance = 1
+
+if exists('+termguicolors')
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+" gruvbox overrides.
+highlight phpMethod guifg=#83a598
+highlight phpIdentifier guifg=#ebdbb2
+highlight phpRegion guifg=#8ec07c
+highlight phpFunction guifg=#83a598
 
 " Transparant background
 hi Normal guibg=NONE ctermbg=NONE
@@ -390,14 +407,20 @@ let g:compe.source.ultisnips = v:true
 let g:compe.source.luasnip = v:true
 let g:compe.source.emoji = v:true
 
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
 " Treesiter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true,
-    disable = { "php"},
-    additional_vim_regex_highlighting = false,
+    disable = {'php'},
+    additional_vim_regex_highlighting = true,
   },
 }
 EOF
@@ -405,7 +428,7 @@ EOF
 " Lualine
 lua <<EOF
 require('lualine').setup{
-	options = { theme = 'nord' }
+	options = { theme = 'gruvbox' }
 }
 EOF
 
