@@ -184,21 +184,21 @@ for_window [class="Droidcam" instance="droidcam"] floating enable
 # ------------------------------------------
 # CUSTOM KEYS START
 # ------------------------------------------
-# Pulse Audio controls
-bindsym XF86AudioMute exec --no-startup-id pactl -- set-sink-mute @DEFAULT_SINK@ toggle # mute sound
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+
+# Path to volume control, without trailing slash
+set $volumepath ~/i3-volume
+set $statuscmd i3status
+# Signal used to update the status line
+set $statussig SIGUSR1
+set $volumestep 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig up $volumestep
+bindsym XF86AudioLowerVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig down $volumestep
+bindsym XF86AudioMute        exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig mute
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-
-# Alsa audio controls.
-# bindsym $mod+Shift+comma exec ~/.config/i3/scripts/alsa restore
-# bindsym $mod+semicolon exec ~/.config/i3/scripts/alsa down Headphone
-# bindsym $mod+comma exec ~/.config/i3/scripts/alsa up Headphone
-# bindsym $mod+m move workspace to output left
 
 ## rofi bindings fancy application menu (two bindings F9/$mod+d)
 
