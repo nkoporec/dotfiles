@@ -491,8 +491,9 @@ nnoremap  yy  "+yy
 " " Paste from clipboard
 nnoremap p "+p
 nnoremap P "+P
-vnoremap p "+p
-vnoremap P "+P
+
+nnoremap dd "+dd
+nnoremap DD "+DD
 
 nnoremap <leader>d :call MyNerdToggle()<CR>
 
@@ -588,4 +589,8 @@ nnoremap <leader>D :Dispatch<Space>
 "Resize
 nnoremap <Leader>= :vertical resize +5<CR>
 nnoremap <Leader><Del> :vertical resize -5<CR>
+
+" Move selected lines up/down.
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 " }}}
