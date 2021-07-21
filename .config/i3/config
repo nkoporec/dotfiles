@@ -49,17 +49,17 @@ bindsym $mod+c kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# change focus + move mouse
+bindsym $mod+h focus left; exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
+bindsym $mod+j focus down;exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
+bindsym $mod+k focus up;exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
+bindsym $mod+l focus right;exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left focus left; exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
+bindsym $mod+Down focus down;exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
+bindsym $mod+Up focus up;exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
+bindsym $mod+Right focus right;exec --no-startup-id /home/nkoporec/.config/i3/scripts/move-mouse-focus.sh
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -221,3 +221,5 @@ bindsym $mod+Shift+period exec systemctl suspend
 bindsym $mod+Shift+comma exec poweroff
 bindsym $mod+Shift+m exec i3-msg exit
 bindsym $mod+y exec /usr/bin/copyq toggle
+bindsym $mod+p exec "killall ray && /usr/local/bin/ray"
+
