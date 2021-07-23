@@ -170,6 +170,7 @@ exec --no-startup-id espanso start
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id copyq
+exec --no-startup-id flameshot
 
 # ------------------------------------------
 # CUSTOM CONFIG
@@ -215,11 +216,13 @@ bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 
 
 
 ## App shortcuts
-bindsym $mod+w exec /usr/bin/brave-browser
+bindsym $mod+w exec /usr/bin/firefox
+# bindsym $mod+w exec /usr/bin/brave-browser
 bindsym $mod+n exec /usr/local/bin/sunflower
 bindsym $mod+Shift+period exec systemctl suspend
 bindsym $mod+Shift+comma exec poweroff
 bindsym $mod+Shift+m exec i3-msg exit
 bindsym $mod+y exec /usr/bin/copyq toggle
 bindsym $mod+p exec "killall ray && /usr/local/bin/ray"
+bindsym $mod+Shift+s exec "flameshot gui"
 
