@@ -507,7 +507,7 @@ nmap <leader>N <Plug>VimspectorRunToCursor
 nnoremap <leader>cb :call vimspector#ClearBreakpoints()<CR>
 
 " Reset layout
-nnoremap <Leader>o :only<CR>
+nnoremap <Leader>o :%bd!\|e#\|bd!#<CR>
 " Tabs
 nnoremap <Leader>tc :tabclose<cr>
 
