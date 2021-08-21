@@ -483,8 +483,8 @@ map <leader>e :Startify<CR>
 nnoremap <leader>yy :t.<CR>
 
 " " Copy to clipboard
+nnoremap  Y  y$
 vnoremap  y  "+y
-nnoremap  Y  "+yg_
 nnoremap  y  "+y
 nnoremap  yy  "+yy
 
