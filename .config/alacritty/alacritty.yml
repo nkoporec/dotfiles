@@ -11,6 +11,8 @@ background_opacity: 0.95
 
 font:
   normal:
+    # family: UbuntuMono Nerd Font
+    # style: Regular
     family: UbuntuMono Nerd Font
     style: Regular
 
@@ -26,11 +28,11 @@ font:
     family: UbuntuMono Nerd Font
     style: Bold Italic
 
-  size: 14.0
+  size: 12.9
 
   offset:
     x: 0
-    y: 3
+    y: 4
 
 # The definition of color schemes.
 #

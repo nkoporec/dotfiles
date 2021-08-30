@@ -41,6 +41,7 @@ Plug 'folke/lsp-colors.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 Plug 'nvim-lua/popup.nvim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-dispatch'
@@ -116,7 +117,8 @@ set scrolloff=3
 
 " Turn on line numbering.
 " set number
-set nonumber
+" set nonumber
+set number relativenumber
 
 " Disable fold
 set foldcolumn=0
@@ -365,7 +367,6 @@ function! Search(base_search_command, search_prompt)
 endfunction
 
 
-
 " Use vim-devicons
 let g:fzf_preview_use_dev_icons = 1
 
@@ -402,10 +403,6 @@ let g:compe.source.buffer = v:true
 let g:compe.source.calc = v:true
 let g:compe.source.nvim_lsp = v:true
 let g:compe.source.nvim_lua = v:true
-let g:compe.source.vsnip = v:true
-let g:compe.source.ultisnips = v:true
-let g:compe.source.luasnip = v:true
-let g:compe.source.emoji = v:true
 
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
@@ -437,9 +434,6 @@ EOF
 "
 " Keymap {{{
 
-" FZF search
-nnoremap <silent> <Leader>s :Rg<CR>
-
 " For when you forget to sudo.. Really Write the file.
 cmap w!! w !sudo tee % >/dev/null
 
@@ -466,11 +460,16 @@ nnoremap <leader>7 :Commentary<CR>
 vnoremap <leader>7 :Commentary<CR>
 
 " Use fzf
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>F :GFiles<CR>
-nnoremap <leader>b :Buffers<CR>
+" nnoremap <leader>f :Files<CR>
+" nnoremap <leader>b :Buffers<CR>
+" nnoremap <leader>h :History<CR>
 
-nnoremap <leader>h :History<CR>
+" Use Telescope
+nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader>s <cmd>Telescope live_grep<cr>
+nnoremap <leader>F <cmd>Telescope live_grep<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
+nnoremap <leader>h Telescope oldfiles<CR>
 
 " CtrlSF
 nmap     <leader>sf <Plug>CtrlSFPrompt
