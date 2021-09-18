@@ -366,6 +366,23 @@ function! Search(base_search_command, search_prompt)
   call fzf#vim#grep(initial_search_command, 1, fzf#vim#with_preview(spec))
 endfunction
 
+" Telescope
+lua <<EOF
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        -- etc
+        ["<esc>"] = require("telescope.actions").close,
+      },
+      n = {
+        -- etc
+        ["<esc>"] = require("telescope.actions").close,
+      },
+    },
+  }
+}
+EOF
 
 " Use vim-devicons
 let g:fzf_preview_use_dev_icons = 1
@@ -465,11 +482,12 @@ vnoremap <leader>7 :Commentary<CR>
 " nnoremap <leader>h :History<CR>
 
 " Use Telescope
-nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <Leader>f :Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>
 nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>F <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
-nnoremap <leader>h Telescope oldfiles<CR>
+nnoremap <Leader>g :lua require'telescope.builtin'.oldfiles()<CR>
+nnoremap <Leader>d :lua require'telescope.builtin'.file_browser({ cwd = vim.fn.expand('%:p:h'),hidden=true})<CR>
 
 " CtrlSF
 nmap     <leader>sf <Plug>CtrlSFPrompt
@@ -494,7 +512,7 @@ nnoremap P "+P
 nnoremap dd "+dd
 nnoremap DD "+DD
 
-nnoremap <leader>d :call MyNerdToggle()<CR>
+" nnoremap <leader>d :call MyNerdToggle()<CR>
 
 " Viminspector
 nmap <F5> <Plug>VimspectorContinue
@@ -592,4 +610,7 @@ nnoremap <Leader><Del> :vertical resize -5<CR>
 " Move selected lines up/down.
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" Move selected lines up/down.
+nnoremap <leader>r :echo @%<CR>
 " }}}

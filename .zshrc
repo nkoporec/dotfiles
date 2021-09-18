@@ -112,8 +112,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/go/bin"
 
-# Set starship as prompt
-eval "$(starship init zsh)"
 neofetch
 
 # Custom aliases

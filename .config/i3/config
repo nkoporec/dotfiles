@@ -37,7 +37,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 # bindsym $mod+space exec "/home/theprimeagen/dotfiles/awesome-streamerrc/ThePrimeagen/tmux2"
@@ -177,6 +177,7 @@ exec --no-startup-id flameshot
 # ------------------------------------------
 # automatic set focus new window if it opens on another workspace then the current:
 for_window [class=alacritty] focus
+for_window [class=(?i)firefox] focus
 for_window [class=(?i)brave] focus
 
 # set floating (nontiling)for apps needing it
@@ -216,8 +217,8 @@ bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 
 
 
 ## App shortcuts
-# bindsym $mod+w exec /usr/bin/firefox
-bindsym $mod+w exec /usr/bin/brave-browser
+bindsym $mod+w exec /usr/bin/firefox
+# bindsym $mod+w exec /usr/bin/brave-browser
 bindsym $mod+n exec /usr/local/bin/sunflower
 bindsym $mod+Shift+period exec systemctl suspend
 bindsym $mod+Shift+comma exec poweroff
