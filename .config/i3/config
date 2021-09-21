@@ -202,6 +202,10 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+## Cycle through workspaces.
+bindsym $mod+n workspace next
+bindsym $mod+b workspace prev
+
 ## rofi bindings fancy application menu (two bindings F9/$mod+d)
 
 bindsym $mod+d exec rofi -modi drun -show drun -display-drun "Apps : " -line-padding 4 \
@@ -219,7 +223,7 @@ bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 
 ## App shortcuts
 bindsym $mod+w exec /usr/bin/firefox
 # bindsym $mod+w exec /usr/bin/brave-browser
-bindsym $mod+n exec /usr/local/bin/sunflower
+bindsym $mod+m exec /usr/local/bin/sunflower
 bindsym $mod+Shift+period exec systemctl suspend
 bindsym $mod+Shift+comma exec poweroff
 bindsym $mod+Shift+m exec i3-msg exit
