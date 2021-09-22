@@ -221,7 +221,7 @@ bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 
 
 
 ## App shortcuts
-bindsym $mod+w exec /usr/bin/firefox
+bindsym $mod+w exec /usr/bin/firefox-developer-edition
 # bindsym $mod+w exec /usr/bin/brave-browser
 bindsym $mod+m exec /usr/local/bin/sunflower
 bindsym $mod+Shift+period exec systemctl suspend
