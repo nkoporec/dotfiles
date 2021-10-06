@@ -583,8 +583,7 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Neovim terminal
-" tnoremap <Esc> <C-\><C-n>
-tnoremap <leader><Esc> <Esc>
+tnoremap <Esc> <C-\><C-n>
 nnoremap <leader>t :exec 'split' <Bar> resize 10 <Bar> terminal<CR>
 tnoremap <leader><Up> <c-\><c-n><c-w>h
 tnoremap <leader><Down> <c-\><c-n><c-w>j

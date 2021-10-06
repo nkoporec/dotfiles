@@ -119,7 +119,6 @@ alias vim="nvim"
 alias vi="nvim"
 alias open="thunar"
 alias lg="lazygit"
-alias cat="bat"
 alias ttx="tmuxinator"
 
 # BEGIN SNIPPET: Platform.sh CLI configuration
