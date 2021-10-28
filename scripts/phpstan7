@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/php7 -d memory_limit=4G /home/nkoporec/.config/composer/vendor/bin/phpstan.phar $@
