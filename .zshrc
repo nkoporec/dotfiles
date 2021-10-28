@@ -73,12 +73,14 @@ ZSH_THEME="robbyrussell"
 plugins=(
 	git
 	history-substring-search
-    	colored-man-pages
-    	zsh-autosuggestions
-    	zsh-syntax-highlighting
+  colored-man-pages
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 	zsh-z
+  tmux
 )
 
+ZSH_TMUX_AUTOSTART=true
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -112,7 +114,11 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/go/bin"
 
+# Autostart
 neofetch
+
+# Keybindings
+bindkey -s ^f "tmux-sessionizer\n"
 
 # Custom aliases
 alias vim="nvim"

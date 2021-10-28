@@ -19,7 +19,6 @@ Plug 'tomtom/tlib_vim'
 " Git
 Plug 'tpope/vim-fugitive'
 " UI
-Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', {'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -31,8 +30,6 @@ Plug 'moll/vim-bbye'
 Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-localrc'
-Plug 'arcticicestudio/nord-vim'
-Plug 'sainnhe/gruvbox-material'
 Plug 'rktjmp/lush.nvim'
 Plug 'npxbr/gruvbox.nvim'
 Plug 'mbbill/undotree'
@@ -43,8 +40,6 @@ Plug 'akinsho/nvim-bufferline.lua'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 Plug 'nvim-lua/popup.nvim'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-dispatch'
 
 " Language tooling
 Plug 'neovim/nvim-lspconfig'
@@ -52,13 +47,15 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'sheerun/vim-polyglot'
 Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'sbdchd/neoformat'
+Plug 'posva/vim-vue'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 call plug#end()
 " }}}
 
 " Config {{{
 " Set the leader to ,
-let mapleader = ","
+let mapleader = ";"
 
 " Set the encoding to UTF-8.
 set encoding=utf-8
@@ -178,23 +175,23 @@ set secure
 set completeopt=menuone,noinsert,noselect
 
 " NERDTree
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeQuitOnOpen = 1
-let NERDTreeShowHidden=1
-let g:NERDTreeWinPos = "right"
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
+" let NERDTreeQuitOnOpen = 1
+" let NERDTreeShowHidden=1
+" let g:NERDTreeWinPos = "right"
 
-" NERDTree Toggle
-function MyNerdToggle()
-	if &filetype == 'nerdtree'
-		:NERDTreeToggle
-	else
-		:NERDTreeFind
-	endif
-endfunction
+" " NERDTree Toggle
+" function MyNerdToggle()
+" 	if &filetype == 'nerdtree'
+" 		:NERDTreeToggle
+" 	else
+" 		:NERDTreeFind
+" 	endif
+" endfunction
 
-" Auto close NERDTree if only 1 window left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" " Auto close NERDTree if only 1 window left
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Set coc bg sign colors to match colorscheme bg.
 augroup myColors
@@ -397,6 +394,8 @@ lua require'lspconfig'.intelephense.setup{autostart = true, filetypes = {"php", 
 lua require'lspconfig'.tsserver.setup{autostart = true }
 lua require'lspconfig'.gopls.setup{autostart = true }
 lua require'lspconfig'.cssls.setup{autostart = true }
+lua require'lspconfig'.vuels.setup{autostart = true }
+lua require'lspconfig'.svelte.setup{autostart = true }
 
 "nvim compe
 let g:compe = {}
@@ -457,7 +456,7 @@ cmap w!! w !sudo tee % >/dev/null
 " Resize to full
 nnoremap <Leader>rp :resize 100<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
-nnoremap <Leader>' :vertical resize -5<CR>
+nnoremap <Leader>* :vertical resize -5<CR>
 
 " Disable ex mode.
 nnoremap Q <nop>
@@ -473,8 +472,8 @@ nnoremap <leader>q :Bdelete!<CR>
 nnoremap <esc> :let @/ = ""<return><esc>
 
 " Commentary
-nnoremap <leader>7 :Commentary<CR>
-vnoremap <leader>7 :Commentary<CR>
+nnoremap <leader>c :Commentary<CR>
+vnoremap <leader>c :Commentary<CR>
 
 " Use fzf
 " nnoremap <leader>f :Files<CR>
@@ -487,7 +486,7 @@ nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>F <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <Leader>g :lua require'telescope.builtin'.oldfiles()<CR>
-nnoremap <Leader>d :lua require'telescope.builtin'.file_browser({ cwd = vim.fn.expand('%:p:h'),hidden=true})<CR>
+nnoremap <Leader>D :lua require'telescope.builtin'.file_browser({ cwd = vim.fn.expand('%:p:h'),hidden=true})<CR>
 
 " CtrlSF
 nmap     <leader>sf <Plug>CtrlSFPrompt
@@ -513,6 +512,7 @@ nnoremap dd "+dd
 nnoremap DD "+DD
 
 " nnoremap <leader>d :call MyNerdToggle()<CR>
+nnoremap <leader>d :Ex<CR>
 
 " Viminspector
 nmap <F5> <Plug>VimspectorContinue
@@ -600,7 +600,7 @@ vnoremap D yodd(<ESC>pa);<ESC>
 vnoremap F yolog.Fatal(<ESC>pa)<ESC>
 
 " Dispatch
-nnoremap <leader>D :Dispatch<Space>
+" nnoremap <leader>D :Dispatch<Space>
 
 "Resize
 nnoremap <Leader>= :vertical resize +5<CR>

@@ -105,7 +105,6 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -170,14 +169,16 @@ exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id copyq
 exec --no-startup-id flameshot
-exec --no-startup-id redshift-gtk -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | awk 'OFS=":" {print $3,$5}' | tr -d ',}')
+exec --no-startup-id `sleep 10; redshift-gtk -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | awk 'OFS=":" {print $3,$5}' | tr -d ',}')`
+exec --no-startup-id xinput --set-prop 8 'libinput Accel Speed' 0.6
 
 # ------------------------------------------
 # CUSTOM CONFIG
 # ------------------------------------------
 # automatic set focus new window if it opens on another workspace then the current:
 for_window [class=alacritty] focus
-for_window [class=(?i)firefox] focus
+for_window [class=(?i)firefox-developer-edition] focus
+for_window [class=(?i)qutebrowser] focus
 for_window [class=(?i)brave] focus
 
 # set floating (nontiling)for apps needing it
@@ -210,20 +211,20 @@ bindsym $mod+b workspace prev
 
 bindsym $mod+d exec rofi -modi drun -show drun -display-drun "Apps : " -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar \
-                -show-icons -theme "gruvbox-dark" -font "Noto Sans Regular 11"
+                -show-icons -theme "gruvbox-dark" -font "Noto Sans Regular 15"
 
 
 ## rofi bindings for window menu (two bindings F10/$mod+t)
 
 bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 4 \
                 -lines 10 -padding 50 -hide-scrollbar \
-                -show-icons -theme "gruvbox-dark" -font "Noto Sans Regular 11"
+                -show-icons -theme "gruvbox-dark" -font "Noto Sans Regular 15"
 
 
 ## App shortcuts
-bindsym $mod+w exec /usr/bin/firefox-developer-edition
-# bindsym $mod+w exec /usr/bin/brave-browser
-bindsym $mod+m exec /usr/local/bin/sunflower
+# bindsym $mod+w exec /usr/bin/firefox-developer-edition
+# bindsym $mod+w exec /usr/bin/qutebrowser
+bindsym $mod+w exec /usr/bin/brave
 bindsym $mod+Shift+period exec systemctl suspend
 bindsym $mod+Shift+comma exec poweroff
 bindsym $mod+Shift+m exec i3-msg exit

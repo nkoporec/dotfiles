@@ -10,7 +10,9 @@ c.tabs.new_position.related = 'next'
 c.tabs.padding = {'bottom': 2, 'left': 5, 'right': 5, 'top': 2}
 
 # Position of the tab bar.
-c.tabs.position = 'top'
+c.tabs.position = 'left'
+
+c.tabs.width = '10%'
 
 # Alignment of the text inside of tabs.
 c.tabs.title.alignment = 'center'
@@ -49,9 +51,15 @@ c.colors.hints.bg = 'black'
 c.colors.hints.match.fg = 'lime'
 
 # keybindings for normal mode
+config.unbind("q")
 config.bind('qq', 'quit')
-config.bind('<Meta-R>', 'reload')
-config.bind('L', 'forward')
-config.bind('H', 'back')
-config.bind('l', 'tab-next')
-config.bind('h', 'tab-prev')
+config.bind('<Ctrl-R>', 'reload -f')
+config.bind('l', 'forward')
+config.bind('h', 'back')
+config.bind('r', 'reload')
+config.bind("T", "set-cmd-text -s :open -t {url:pretty}")
+config.bind("t", "set-cmd-text -s :open -t")
+config.bind("gh", "set-cmd-text -s :tab-select")
+
+# theme
+config.source('qutebrowser-themes/themes/onedark.py')

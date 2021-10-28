@@ -28,11 +28,11 @@ font:
     family: UbuntuMono Nerd Font
     style: Bold Italic
 
-  size: 12.9
+  size: 14.9
 
   offset:
     x: 0
-    y: 4
+    y: 7
 
 # The definition of color schemes.
 #
@@ -177,3 +177,4 @@ key_bindings:
   - { key: V,        mods: Control, action: Paste                  }
   - { key: C,        mods: Control, action: Copy                   }
   - { key: C,        mods: Control|Shift, chars: "\x03"         }
+  - { key: N,        mods: Control, action: ToggleViMode                   }
