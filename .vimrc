@@ -25,18 +25,16 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nacro90/numb.nvim'
 
-Plug 'dyng/ctrlsf.vim'
 Plug 'moll/vim-bbye'
 Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-localrc'
 Plug 'rktjmp/lush.nvim'
-Plug 'npxbr/gruvbox.nvim'
+Plug 'morhetz/gruvbox'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
 Plug 'folke/lsp-colors.nvim'
-Plug 'hoob3rt/lualine.nvim'
-Plug 'akinsho/nvim-bufferline.lua'
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 Plug 'nvim-lua/popup.nvim'
@@ -50,12 +48,13 @@ Plug 'sbdchd/neoformat'
 Plug 'posva/vim-vue'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
+
 call plug#end()
 " }}}
 
 " Config {{{
 " Set the leader to ,
-let mapleader = ";"
+let mapleader = " "
 
 " Set the encoding to UTF-8.
 set encoding=utf-8
@@ -140,17 +139,17 @@ set noshowmode
 set autoread
 
 " For faster vim in terminal
-set regexpengine=1
-set noshowcmd
-set timeoutlen=1000
-set ttimeoutlen=0
-let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-set noshowmatch         " Don't match parentheses/brackets
-set nocursorcolumn      " Don't paint cursor column
-set lazyredraw          " Wait to redraw
-set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-let html_no_rendering=1 " Don't render italic, bold, links in HTML
-set redrawtime=10000
+" set regexpengine=1
+" set noshowcmd
+ " set timeoutlen=500
+" set ttimeoutlen=0
+" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+" set noshowmatch         " Don't match parentheses/brackets
+" set nocursorcolumn      " Don't paint cursor column
+" set lazyredraw          " Wait to redraw
+" set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+" let html_no_rendering=1 " Don't render italic, bold, links in HTML
+" set redrawtime=10000
 
 " Set split behavior.
 set splitright  " vsplit opens new window to the right
@@ -173,6 +172,11 @@ set secure
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
+
+" Force tabs
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
 
 " NERDTree
 " let NERDTreeMinimalUI = 1
@@ -300,13 +304,13 @@ syntax enable
 set termguicolors
 set background=dark
 set t_Co=256
+set t_ut=
+let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
-
-let g:enable_bold_font = 1
-let g:enable_italic_font = 0
-
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_better_performance = 1
+highlight DiagnosticUnderlineError cterm=undercurl gui=undercurl
+highlight DiagnosticUnderlineWarn cterm=undercurl gui=undercurl
+highlight DiagnosticUnderlineInfo cterm=undercurl gui=undercurl
+highlight DiagnosticUnderlineHint cterm=undercurl gui=undercurl
 
 if exists('+termguicolors')
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -317,7 +321,7 @@ endif
 highlight phpMethod guifg=#83a598
 highlight phpIdentifier guifg=#ebdbb2
 highlight phpRegion guifg=#8ec07c
-highlight phpFunction guifg=#83a598
+" highlight phpFunction guifg=#83a598
 
 " Transparant background
 hi Normal guibg=NONE ctermbg=NONE
@@ -438,13 +442,10 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" Lualine
+" LSP signature
 lua <<EOF
-require('lualine').setup{
-	options = { theme = 'gruvbox' }
-}
+require "lsp_signature".setup()
 EOF
-
 
 " }}}
 "
@@ -466,14 +467,14 @@ nnoremap j gj
 nnoremap k gk
 
 " Closes a buffer without messing up windows, layouts, etc.
-nnoremap <leader>q :Bdelete!<CR>
+nnoremap <leader>c :Bdelete!<CR>
 
 " Clear searches on ESC.
 nnoremap <esc> :let @/ = ""<return><esc>
 
 " Commentary
-nnoremap <leader>c :Commentary<CR>
-vnoremap <leader>c :Commentary<CR>
+nnoremap <leader>) :Commentary<CR>
+vnoremap <leader>) :Commentary<CR>
 
 " Use fzf
 " nnoremap <leader>f :Files<CR>
@@ -518,10 +519,10 @@ nnoremap <leader>d :Ex<CR>
 nmap <F5> <Plug>VimspectorContinue
 nmap <F6> :VimspectorReset<CR>
 nmap <F7> <Plug>VimspectorPause
-nmap <leader>B <Plug>VimspectorToggleBreakpoint
+nmap <leader>@ <Plug>VimspectorToggleBreakpoint
 nmap <leader>n <Plug>VimspectorStepOver
 nmap <leader>N <Plug>VimspectorRunToCursor
-nnoremap <leader>cb :call vimspector#ClearBreakpoints()<CR>
+nnoremap <leader>^ :call vimspector#ClearBreakpoints()<CR>
 
 " Reset layout
 nnoremap <Leader>o :%bd!\|e#\|bd!#<CR>
@@ -565,9 +566,6 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
-" exit :term with ESC
-tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
-
 " nvimLSP
 nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
@@ -584,15 +582,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Neovim terminal
 tnoremap <Esc> <C-\><C-n>
-nnoremap <leader>t :exec 'split' <Bar> resize 10 <Bar> terminal<CR>
-tnoremap <leader><Up> <c-\><c-n><c-w>h
-tnoremap <leader><Down> <c-\><c-n><c-w>j
-tnoremap <leader><Left> <c-\><c-n><c-w>k
-tnoremap <leader><Right> <c-\><c-n><c-w>l
-tnoremap <leader>h <c-\><c-n><c-w>h
-tnoremap <leader>j <c-\><c-n><c-w>j
-tnoremap <leader>k <c-\><c-n><c-w>k
-tnoremap <leader>l <c-\><c-n><c-w>l
 
 " Auto wrap selected words into dd, console.log, log.fatal
 vnoremap L yoconsole.log(<ESC>pa);<ESC>
