@@ -31,6 +31,7 @@ Plug 'neomake/neomake'
 Plug 'thinca/vim-localrc'
 Plug 'rktjmp/lush.nvim'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
 Plug 'folke/lsp-colors.nvim'
@@ -47,6 +48,7 @@ Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'sbdchd/neoformat'
 Plug 'posva/vim-vue'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'github/copilot.vim'
 
 
 call plug#end()
@@ -139,17 +141,16 @@ set noshowmode
 set autoread
 
 " For faster vim in terminal
-" set regexpengine=1
-" set noshowcmd
- " set timeoutlen=500
-" set ttimeoutlen=0
-" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-" set noshowmatch         " Don't match parentheses/brackets
-" set nocursorcolumn      " Don't paint cursor column
-" set lazyredraw          " Wait to redraw
-" set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-" let html_no_rendering=1 " Don't render italic, bold, links in HTML
-" set redrawtime=10000
+set regexpengine=1
+set noshowcmd
+set ttimeoutlen=0
+let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+set noshowmatch         " Don't match parentheses/brackets
+set nocursorcolumn      " Don't paint cursor column
+set lazyredraw          " Wait to redraw
+set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+let html_no_rendering=1 " Don't render italic, bold, links in HTML
+set redrawtime=10000
 
 " Set split behavior.
 set splitright  " vsplit opens new window to the right
