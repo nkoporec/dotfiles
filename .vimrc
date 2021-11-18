@@ -478,16 +478,17 @@ nnoremap <leader>) :Commentary<CR>
 vnoremap <leader>) :Commentary<CR>
 
 " Use fzf
-nnoremap <leader>f :Files<CR>
+" nnoremap <leader>f :Files<CR>
 " nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>g :History<CR>
+" nnoremap <leader>g :History<CR>
 
 " Use Telescope
-" nnoremap <Leader>f :Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>
+nnoremap <Leader>f :Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>
 nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>F <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
-" nnoremap <Leader>g :lua require'telescope.builtin'.oldfiles()<CR>
+nnoremap <Leader>~ :lua require'telescope.builtin'.oldfiles()<CR>
+nnoremap <Leader>g :lua require'telescope.builtin'.git_branches()<CR>
 nnoremap <Leader>D :lua require'telescope.builtin'.file_browser({ cwd = vim.fn.expand('%:p:h'),hidden=true})<CR>
 
 " CtrlSF
