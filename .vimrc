@@ -39,6 +39,7 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
 Plug 'nvim-lua/popup.nvim'
+Plug 'ggandor/lightspeed.nvim'
 
 " Language tooling
 Plug 'neovim/nvim-lspconfig'
@@ -49,6 +50,7 @@ Plug 'sbdchd/neoformat'
 Plug 'posva/vim-vue'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'github/copilot.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 
 call plug#end()
@@ -576,7 +578,7 @@ nnoremap <leader>grr :lua vim.lsp.buf.references()<CR>
 nnoremap <leader>grn :lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>gh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>gca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <leader>gs :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
