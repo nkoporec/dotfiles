@@ -1,5 +1,6 @@
 config.load_autoconfig()
 
+
 # Open new tabs in the background.
 c.tabs.background = True
 
@@ -35,8 +36,8 @@ c.statusbar.widgets = ["keypress", "url", "scroll", "history", "tabs", "progress
 # Position of the status bar.
 c.statusbar.position = 'bottom'
 
-# Font used in the completion widget.
-c.fonts.completion.entry = '8pt monospace'
+# Font used in the completion wdget.
+c.fonts.completion.entry = '20pt monospace'
 
 # CSS border value for hints.
 c.hints.border = '2px solid black'
@@ -61,12 +62,14 @@ config.bind('h', 'back')
 config.bind('K', 'tab-next')
 config.bind('J', 'tab-prev')
 config.bind('r', 'reload')
+config.bind('K', 'tab-next')
+config.bind('J', 'tab-prev')
 config.bind("T", "set-cmd-text -s :open -t {url:pretty}")
 config.bind("O", "set-cmd-text -s :open {url:pretty}")
 config.bind("t", "set-cmd-text -s :open -t")
-config.bind("gh", "set-cmd-text -s :tab-select")
+config.bind("b", "set-cmd-text -s :tab-select")
+config.bind('y', 'yank selection')
+config.bind('Y', 'yank')
 
-# theme
-config.source('qutebrowser-themes/themes/onedark.py')
 
 
