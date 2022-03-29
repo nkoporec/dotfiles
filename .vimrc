@@ -44,7 +44,6 @@ Plug 'ggandor/lightspeed.nvim'
 " Language tooling
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
-Plug 'sheerun/vim-polyglot'
 Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'sbdchd/neoformat'
 Plug 'posva/vim-vue'
@@ -127,7 +126,8 @@ set foldcolumn=0
 set laststatus=2
 
 " Highlight the cursor line.
-set cul
+" set cul
+set nocursorline
 
 " Show what mode vim is in.
 set showmode
@@ -309,6 +309,7 @@ set background=dark
 set t_Co=256
 set t_ut=
 let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_italic = 1
 colorscheme gruvbox
 highlight DiagnosticUnderlineError cterm=undercurl gui=undercurl
 highlight DiagnosticUnderlineWarn cterm=undercurl gui=undercurl
@@ -372,6 +373,22 @@ endfunction
 
 " Telescope
 lua <<EOF
+local previewers = require("telescope.previewers")
+
+local new_maker = function(filepath, bufnr, opts)
+  opts = opts or {}
+
+  filepath = vim.fn.expand(filepath)
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat then return end
+    if stat.size > 100000 then
+      return
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  end)
+end
+
 require('telescope').setup{
   defaults = {
     mappings = {
@@ -384,6 +401,20 @@ require('telescope').setup{
         ["<esc>"] = require("telescope.actions").close,
       },
     },
+    find_files = {
+      find_command = { "rg", "--files", "--hidden", "--ignore", "--dfa-size-limit 5G"}
+    },
+    buffer_previewer_maker = new_maker,
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim" -- add this value
+    }
   }
 }
 EOF
@@ -398,11 +429,29 @@ EOF
 
 "nvimLSP
 lua require'lspconfig'.intelephense.setup{autostart = true, filetypes = {"php", "module", "theme", "inc"}, settings = { intelephense = { files = { associations = { "*.module","*.inc","*.theme","*.php"}}}}}
-lua require'lspconfig'.tsserver.setup{autostart = true }
+lua require'lspconfig'.tsserver.setup{autostart = true}
 lua require'lspconfig'.gopls.setup{autostart = true }
 lua require'lspconfig'.cssls.setup{autostart = true }
 lua require'lspconfig'.vuels.setup{autostart = true }
 lua require'lspconfig'.svelte.setup{autostart = true }
+
+
+lua <<EOF
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig.configs'
+if not configs.drupal then
+	configs.drupal = {
+		default_config = {
+    		cmd = { 'drupal-lsp'},
+    		filetypes = { 'php'},
+			root_dir = function(fname)
+			  return lspconfig.util.root_pattern('composer.json', '.git')(fname)
+			end
+		};
+	}
+   end
+lspconfig.drupal.setup{autostart = true }
+EOF
 
 "nvim compe
 let g:compe = {}
@@ -439,7 +488,7 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true,
-    disable = {'php'},
+    disable = {},
     additional_vim_regex_highlighting = true,
   },
 }
