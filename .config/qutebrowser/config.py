@@ -37,7 +37,7 @@ c.statusbar.widgets = ["keypress", "url", "scroll", "history", "tabs", "progress
 c.statusbar.position = 'bottom'
 
 # Font used in the completion wdget.
-c.fonts.completion.entry = '20pt monospace'
+c.fonts.completion.entry = '10pt monospace'
 
 # CSS border value for hints.
 c.hints.border = '2px solid black'

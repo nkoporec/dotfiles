@@ -11,6 +11,7 @@ Xcursor.size:  16
 
 /* XTERM */
 XTerm*faceName: JetBrainsMono Nerd Font Mono
+/* XTerm*faceName: UbuntuMono Nerd Font */
 XTerm*faceSize: 10
 
 /* XTERM  config*/

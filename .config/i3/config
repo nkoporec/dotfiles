@@ -35,7 +35,8 @@ for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+# bindsym $mod+Return exec st
+bindsym $mod+Return exec xterm
 
 # kill focused window
 # bindsym $mod+space exec "/home/theprimeagen/dotfiles/awesome-streamerrc/ThePrimeagen/tmux2"
@@ -163,7 +164,7 @@ exec --no-startup-id picom
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id bluetoothctl power on
-exec --no-startup-id xset r rate 175 85
+exec --no-startup-id xset r rate 175 100
 exec --no-startup-id espanso start
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 exec --no-startup-id nitrogen --restore

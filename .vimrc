@@ -1,3 +1,4 @@
+"
 " My vim configuration
 "
 " This file contains the complete configuration for my daily driver vim
@@ -24,6 +25,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nacro90/numb.nvim'
+Plug 'tjdevries/cyclist.vim'
 
 Plug 'moll/vim-bbye'
 Plug 'mhinz/vim-startify'
@@ -402,7 +404,7 @@ require('telescope').setup{
       },
     },
     find_files = {
-      find_command = { "rg", "--files", "--hidden", "--ignore", "--dfa-size-limit 5G"}
+      find_command = { "ag", "--files", "--hidden", "--ignore", "--dfa-size-limit 10G"}
     },
     buffer_previewer_maker = new_maker,
     vimgrep_arguments = {
@@ -434,24 +436,8 @@ lua require'lspconfig'.gopls.setup{autostart = true }
 lua require'lspconfig'.cssls.setup{autostart = true }
 lua require'lspconfig'.vuels.setup{autostart = true }
 lua require'lspconfig'.svelte.setup{autostart = true }
-
-
-lua <<EOF
-local lspconfig = require 'lspconfig'
-local configs = require 'lspconfig.configs'
-if not configs.drupal then
-	configs.drupal = {
-		default_config = {
-    		cmd = { 'drupal-lsp'},
-    		filetypes = { 'php'},
-			root_dir = function(fname)
-			  return lspconfig.util.root_pattern('composer.json', '.git')(fname)
-			end
-		};
-	}
-   end
-lspconfig.drupal.setup{autostart = true }
-EOF
+lua require'lspconfig'.rust_analyzer.setup{autostart = true }
+lua require'lspconfig'.drupal.setup{autostart = true }
 
 "nvim compe
 let g:compe = {}
@@ -534,7 +520,7 @@ vnoremap <leader>) :Commentary<CR>
 " nnoremap <leader>g :History<CR>
 
 " Use Telescope
-nnoremap <Leader>f :Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>
+nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>F <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
