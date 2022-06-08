@@ -22,8 +22,8 @@ Plug 'tpope/vim-fugitive'
 " UI
 Plug 'junegunn/fzf', {'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
-Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'yamatsum/nvim-nonicons'
 Plug 'nacro90/numb.nvim'
 Plug 'tjdevries/cyclist.vim'
 
@@ -422,7 +422,25 @@ require('telescope').setup{
 EOF
 
 " Use vim-devicons
-let g:fzf_preview_use_dev_icons = 1
+" let g:fzf_preview_use_dev_icons = 1
+lua <<EOF
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- you can specify color or cterm_color instead of specifying both of them
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    cterm_color = "65",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+EOF
 
 " Numb
 lua <<EOF

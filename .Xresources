@@ -10,7 +10,7 @@ Xcursor.size:  16
 /* Xft.rgba: rgb */
 
 /* XTERM */
-XTerm*faceName: JetBrainsMono Nerd Font Mono
+XTerm*faceName: JetBrainsMonoNL Nerd Font
 /* XTerm*faceName: UbuntuMono Nerd Font */
 XTerm*faceSize: 10
 
