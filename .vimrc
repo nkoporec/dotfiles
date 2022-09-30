@@ -23,7 +23,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', {'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'yamatsum/nvim-nonicons'
 Plug 'nacro90/numb.nvim'
 Plug 'tjdevries/cyclist.vim'
 
@@ -31,17 +30,16 @@ Plug 'moll/vim-bbye'
 Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-localrc'
-Plug 'rktjmp/lush.nvim'
 Plug 'morhetz/gruvbox'
-Plug 'sainnhe/gruvbox-material'
+Plug 'luisiacc/gruvbox-baby', {'branch': 'main'}
+Plug 'chriskempson/base16-vim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'master', 'do': ':TSUpdate'}
-Plug 'folke/lsp-colors.nvim'
+Plug 'nvim-treesitter/playground'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': 'master'}
-Plug 'nvim-lua/popup.nvim'
-Plug 'ggandor/lightspeed.nvim'
+Plug 'justinmk/vim-sneak'
 
 " Language tooling
 Plug 'neovim/nvim-lspconfig'
@@ -49,8 +47,7 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'puremourning/vimspector', {'branch': 'master'}
 Plug 'sbdchd/neoformat'
 Plug 'posva/vim-vue'
-Plug 'evanleck/vim-svelte', {'branch': 'main'}
-Plug 'github/copilot.vim'
+" Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 
@@ -94,8 +91,9 @@ set nowrap
 " ...but indent my shit intelligently.
 set autoindent
 
-" Show matching brackets/parens
+" Show matching brackets/parens but don't jump
 set showmatch
+set matchtime=0
 
 " Show list of possible completions instead of just completing.
 set wildmenu
@@ -128,8 +126,8 @@ set foldcolumn=0
 set laststatus=2
 
 " Highlight the cursor line.
-" set cul
-set nocursorline
+set cursorline
+" set nocursorline
 
 " Show what mode vim is in.
 set showmode
@@ -148,8 +146,8 @@ set autoread
 set regexpengine=1
 set noshowcmd
 set ttimeoutlen=0
-let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-set noshowmatch         " Don't match parentheses/brackets
+" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+" set noshowmatch         " Don't match parentheses/brackets
 set nocursorcolumn      " Don't paint cursor column
 set lazyredraw          " Wait to redraw
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
@@ -202,13 +200,13 @@ set shiftwidth=4
 " " Auto close NERDTree if only 1 window left
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Set coc bg sign colors to match colorscheme bg.
-augroup myColors
-	autocmd!
-	"palenight
-	autocmd ColorScheme * highlight SignColumn guibg=none
+"" Set coc bg sign colors to match colorscheme bg.
+"augroup myColors
+"	autocmd!
+"	"palenight
+"	autocmd ColorScheme * highlight SignColumn guibg=none
 
-augroup END
+"augroup END
 
 " Better display for messages for CoC
 set cmdheight=2
@@ -312,7 +310,11 @@ set t_Co=256
 set t_ut=
 let g:gruvbox_contrast_dark = "hard"
 let g:gruvbox_italic = 1
-colorscheme gruvbox
+" colorscheme gruvbox
+let base16colorspace=256
+colorscheme base16-gruvbox-dark-hard
+" colorscheme tokyonight
+
 highlight DiagnosticUnderlineError cterm=undercurl gui=undercurl
 highlight DiagnosticUnderlineWarn cterm=undercurl gui=undercurl
 highlight DiagnosticUnderlineInfo cterm=undercurl gui=undercurl
@@ -327,10 +329,29 @@ endif
 highlight phpMethod guifg=#83a598
 highlight phpIdentifier guifg=#ebdbb2
 highlight phpRegion guifg=#8ec07c
-" highlight phpFunction guifg=#83a598
+highlight phpFunction guifg=#83a598
+
+" lua <<EOF
+" local colors = require("gruvbox-baby.colors").config()
+" vim.g.gruvbox_baby_highlights = {phpTSVariable = {fg = colors.foreground}, phpTSVariableBuiltin = {fg = colors.foreground}}
+" -- Enable telescope theme
+" vim.g.gruvbox_baby_telescope_theme = 1
+" -- Enable transparent mode
+" vim.g.gruvbox_baby_transparent_mode = 1
+
+" vim.cmd[[colorscheme gruvbox-baby]]
+" EOF
+
+nmap <leader>sp :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 " Transparant background
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 " Custom commands
 com! W w
@@ -455,7 +476,8 @@ lua require'lspconfig'.cssls.setup{autostart = true }
 lua require'lspconfig'.vuels.setup{autostart = true }
 lua require'lspconfig'.svelte.setup{autostart = true }
 lua require'lspconfig'.rust_analyzer.setup{autostart = true }
-lua require'lspconfig'.drupal.setup{autostart = true }
+" lua require'lspconfig'.drupal.setup{autostart = true }
+lua require'lspconfig'.composer_lsp.setup{autostart = true }
 
 "nvim compe
 let g:compe = {}
@@ -489,7 +511,7 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 " Treesiter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
   highlight = {
     enable = true,
     disable = {},
@@ -502,6 +524,16 @@ EOF
 lua <<EOF
 require "lsp_signature".setup()
 EOF
+
+" LSP log level
+lua vim.lsp.set_log_level("debug")
+
+" Sneak
+let g:sneak#label = 1
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 " }}}
 "
@@ -539,6 +571,8 @@ vnoremap <leader>) :Commentary<CR>
 
 " Use Telescope
 nnoremap <Leader>f :Telescope find_files<CR>
+" nnoremap <Leader>f :Files<CR>
+" nnoremap <Leader>b :Buffers<CR>
 nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>F <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
@@ -658,4 +692,17 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " Move selected lines up/down.
 nnoremap <leader>r :echo @%<CR>
+
+" No arrow keys --- force yourself to use the home row
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Left and right can switch buffers
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
+
 " }}}

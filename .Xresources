@@ -1,38 +1,38 @@
-/* Xft.dpi: 110 */
-Xcursor.size:  16
+*faceName: Public Sans
+XTerm*faceSize: 12.4
+XTerm*vt100.scaleHeight: 1.10
+*multiClickTime: 300
+*international: true
+Xcursor.theme: default
+Xcursor.size:  16       !  32, 48 or 64 may also be good values
 
-! These might also be useful depending on your monitor and personal preference:
-/* Xft.autohint: 0 */
-/* Xft.lcdfilter:  lcddefault */
-/* Xft.hintstyle:  hintfull */
-/* Xft.hinting: 1 */
-/* Xft.antialias: 1 */
-/* Xft.rgba: rgb */
+! Xft settings ---------------------------------------------------------------
 
-/* XTERM */
-XTerm*faceName: JetBrainsMonoNL Nerd Font
-/* XTerm*faceName: UbuntuMono Nerd Font */
-XTerm*faceSize: 10
+Xft.dpi: 120
+Xft.lcdfilter: lcddefault
+Xft.antialias:  true
+Xft.autohint:   false
+Xft.hinting:    true
+Xft.hintstyle:  hintfull
+Xft.rgba: rgb
 
-/* XTERM  config*/
-XTerm.termName: xterm-256color
-XTerm.vt100.locale: false
-XTerm.vt100.utf8: true
-XTerm.vt100.metaSendsEscape: true
-XTerm.vt100.backarrowKey: false
-XTerm.ttyModes: erase ^?
-xterm.vt100.blink: false
+! xterm ----------------------------------------------------------------------
+xterm*geometry:           100x25
+xterm*dynamicColors:      true
+xterm*utf8:               1
+xterm*eightBitInput:      true
+xterm*saveLines:          12000
+xterm*scrollTtyKeypress:  true
+xterm*scrollTtyOutput:    false
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
+xterm*termName:           xterm-256color
+/* xterm*faceName:           JetBrains Mono NL */
+xterm*faceName:           JetBrains Mono NL
 
-XTerm*VT100.Translations: #override \
-		Ctrl Shift <Key>c: copy-selection(CLIPBOARD) \n\
-		Ctrl Shift <Key>v: insert-selection(CLIPBOARD)
-
-xterm*selectToClipboard: true
-xterm*disallowedWindowOps: 20,21,SetXProp
-
-XTerm.vt100.saveLines: 4096
-UXTerm.vt100.reverseVideo: true
-
+!Gruvbox
+! hard contrast: *background: #1d2021
 *background: #1d2021
 ! soft contrast: *background: #32302f
 *foreground: #ebdbb2
@@ -60,3 +60,47 @@ UXTerm.vt100.reverseVideo: true
 ! LightGrey + White
 *color7:  #a89984
 *color15: #ebdbb2
+
+!Gruvbox end
+
+!Tokyo Night theme
+! general
+/* *foreground: #c0caf5 */
+/* *background: #24283b */
+/* *cursorColor: #a9b1d6 */
+
+/* ! terminal padding color */
+/* *borderColor: #1a1b26 */
+
+/* ! black */
+/* *color0: #1a1b26 */
+/* *color8: #4e5173 */
+
+/* ! red */
+/* *color1: #F7768E */
+/* *color9: #F7768E */
+
+/* ! green */
+/* *color2: #9ECE6A */
+/* *color10: #9ECE6A */
+
+/* ! yellow */
+/* *color3: #E0AF68 */
+/* *color11: #E0AF68 */
+
+/* ! blue */
+/* *color4: #7AA2F7 */
+/* *color12: #7AA2F7 */
+
+/* ! magenta */
+/* *color5: #9a7ecc */
+/* *color13: #9a7ecc */
+
+/* ! cyan */
+/* *color6: #4abaaf */
+/* *color14: #4abaaf */
+
+/* ! white */
+/* *color7: #acb0d0 */
+/* *color15: #acb0d0 */
+/* ! Tokyo Night theme ends */

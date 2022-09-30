@@ -114,6 +114,7 @@ source $ZSH/oh-my-zsh.sh
 # Path
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 
 # Autostart
 neofetch
