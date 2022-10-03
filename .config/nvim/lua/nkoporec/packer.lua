@@ -43,6 +43,8 @@ return require("packer").startup(function()
         run = ":TSUpdate"
     })
     use("nvim-treesitter/playground")
+    use("numToStr/Comment.nvim")
+
 
     -- Helpers
     use("nvim-lua/plenary.nvim")
