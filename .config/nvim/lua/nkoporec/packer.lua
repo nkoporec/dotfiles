@@ -16,8 +16,6 @@ return require("packer").startup(function()
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/nvim-cmp")
-    use("onsails/lspkind-nvim")
-    use("glepnir/lspsaga.nvim")
     use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
     
@@ -29,7 +27,6 @@ return require("packer").startup(function()
     -- File managment
     use("nvim-telescope/telescope.nvim")
     use("tpope/vim-fugitive")
-
 
     -- Colorschemes
     use("gruvbox-community/gruvbox")

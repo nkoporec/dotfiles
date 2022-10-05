@@ -1,3 +1,4 @@
+-- Remaps
 local Remap = require("nkoporec.keymap")
 local nnoremap = Remap.nnoremap
 

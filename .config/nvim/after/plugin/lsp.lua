@@ -12,8 +12,7 @@ local source_mapping = {
 	nvim_lsp = "[LSP]",
 	path = "[Path]",
 }
-local lspkind = require("lspkind")
- 
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -29,15 +28,6 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ['<CR>'] = cmp.mapping.confirm({ select = true })
 	}),
-
-	formatting = {
-		format = function(entry, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind]
-			local menu = source_mapping[entry.source.name]
-			vim_item.menu = menu
-			return vim_item
-		end,
-	},
 
 	sources = {
 		{ name = "nvim_lsp" },
