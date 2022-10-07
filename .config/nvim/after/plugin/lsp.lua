@@ -76,6 +76,7 @@ require("lspconfig").rust_analyzer.setup({})
 -- Keymaps
 nnoremap("gd", function() vim.lsp.buf.definition() end)
 nnoremap("gh", function() vim.lsp.buf.hover() end)
+nnoremap("gf", function() vim.lsp.buf.format() end)
 nnoremap("<leader>vd", function() vim.diagnostic.open_float() end)
 nnoremap("[d", function() vim.diagnostic.goto_next() end)
 nnoremap("]d", function() vim.diagnostic.goto_prev() end)

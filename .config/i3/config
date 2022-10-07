@@ -42,7 +42,8 @@ floating_modifier $mod
 # start a terminal
 # bindsym $mod+Return exec st
 # bindsym $mod+Return exec xterm
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec kitty
 
 # kill focused window
 # bindsym $mod+space exec "/home/theprimeagen/dotfiles/awesome-streamerrc/ThePrimeagen/tmux2"

@@ -18,6 +18,7 @@ return require("packer").startup(function()
     use("hrsh7th/nvim-cmp")
     use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
+    use({ "jose-elias-alvarez/null-ls.nvim", compile = "76d0573fc159839a9c4e62a0ac4f1046845cdd50" })
     
     -- Language tooling
     use("mfussenegger/nvim-dap")
@@ -41,6 +42,7 @@ return require("packer").startup(function()
     })
     use("nvim-treesitter/playground")
     use("numToStr/Comment.nvim")
+    use("klen/nvim-config-local")
 
 
     -- Helpers
