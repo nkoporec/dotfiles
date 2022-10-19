@@ -7,7 +7,7 @@ local dapui = require('dapui')
 dap.adapters.php = {
   type = 'executable',
   command = 'node',
-  args = { '/Users/nkoporec/Downloads/vscode-php-debug/out/phpDebug.js' }
+  args = { '/home/nkoporec/xdebug/vscode-php-debug/out/phpDebug.js' }
 }
 
 -- Defaults to DDEV config.
@@ -103,7 +103,7 @@ dapui.setup({
 })
 
 -- UI stuff
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', {text='ﳁ', texthl='red', linehl='red', numhl='red'})
 
 -- Keybindings
 nnoremap("<F5>", ":lua require'dap'.continue()<CR>:lua require'dapui'.open()<CR>")
