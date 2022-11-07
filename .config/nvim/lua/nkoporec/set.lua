@@ -37,6 +37,10 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+-- Hide statusline
+vim.opt.laststatus = 0
+vim.opt.showmode = false
+
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1
 

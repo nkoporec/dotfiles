@@ -54,6 +54,29 @@ require("lspconfig").svelte.setup({
     autostart = true,
 })
 
+require'lspconfig'.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
 require("lspconfig").cssls.setup({
     autostart = true,
 })
@@ -71,16 +94,21 @@ require("lspconfig").gopls.setup({
 	},
 })
 
-require("lspconfig").rust_analyzer.setup({})
+-- Configured by rust-tools.
+-- require("lspconfig").rust_analyzer.setup({
+--   checkOnSave = {
+--         enable = true,
+--   }
+-- })
 
 -- Keymaps
 nnoremap("gd", function() vim.lsp.buf.definition() end)
 nnoremap("gh", function() vim.lsp.buf.hover() end)
 nnoremap("gf", function() vim.lsp.buf.format() end)
+nnoremap("ga", function() vim.lsp.buf.code_action() end)
 nnoremap("<leader>vd", function() vim.diagnostic.open_float() end)
 nnoremap("[d", function() vim.diagnostic.goto_next() end)
 nnoremap("]d", function() vim.diagnostic.goto_prev() end)
-nnoremap("<leader>vca", function() vim.lsp.buf.code_action() end)
 nnoremap("<leader>vrr", function() vim.lsp.buf.references() end)
 nnoremap("<leader>vrn", function() vim.lsp.buf.rename() end)
 inoremap("<C-h>", function() vim.lsp.buf.signature_help() end)

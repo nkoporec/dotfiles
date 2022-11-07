@@ -12,7 +12,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:JetBrainsMonoMedium 11
+font pango:JetBrainsMonoMedium 9
 
 # GET DEM BORDERS OUT OF HEREc:w
 #
@@ -160,9 +160,14 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        position bottom
+  mode hide
+    hidden_state hide
+    modifier Mod4+Shift
         status_command i3status
+        position bottom
 }
+
+
 
 # ------------------------------------------
 # CUSTOM AUTOSTART
@@ -245,3 +250,9 @@ bindsym $mod+Shift+m exec i3-msg exit
 bindsym $mod+y exec /usr/bin/copyq toggle
 bindsym $mod+Shift+s exec "flameshot gui"
 
+## CUSTOM
+exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/nkoporec/.config/i3/workspaces/workspace-1.json'"
+exec --no-startup-id "firefox-developer-edition"
+exec --no-startup-id "alacritty -t alacritty-main -e tmux new -s main"
+exec --no-startup-id "alacritty -t alacritty-second -e tmux new -s second 'nvim ~/tmp/todo.md'"
+exec --no-startup-id "alacritty -t alacritty-third -e tmux new -s third"
