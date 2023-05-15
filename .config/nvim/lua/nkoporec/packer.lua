@@ -3,10 +3,13 @@ return require("packer").startup(function()
     use("wbthomason/packer.nvim")
 
     -- UI
-    use("tjdevries/cyclist.vim")
+    -- use("tjdevries/cyclist.vim")
     use("kyazdani42/nvim-web-devicons")
+    use("tjdevries/gruvbuddy.nvim")
     use("tjdevries/colorbuddy.nvim")
+    use("chriskempson/base16-vim")
     use("norcalli/nvim-colorizer.lua")
+    use("w0ng/vim-hybrid")
 
     -- LSP
     use("neovim/nvim-lspconfig")
@@ -16,6 +19,9 @@ return require("packer").startup(function()
     use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
     use({ "simrat39/rust-tools.nvim" })
+    use({ "lvimuser/lsp-inlayhints.nvim" })
+    use({ "rust-lang/rust.vim" })
+
     
     -- Language tooling
     use("mfussenegger/nvim-dap")
@@ -26,13 +32,12 @@ return require("packer").startup(function()
     -- File managment
     use("nvim-telescope/telescope.nvim")
     use("tpope/vim-fugitive")
+    -- use("junegunn/fzf.vim")
 
     -- Colorschemes
     use("gruvbox-community/gruvbox")
-    use("tjdevries/gruvbuddy.nvim")
 
     -- Other things
-    use("sbdchd/neoformat")
     use("mbbill/undotree")
 
     use("nvim-treesitter/nvim-treesitter", {

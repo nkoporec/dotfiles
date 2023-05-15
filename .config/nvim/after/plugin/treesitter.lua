@@ -18,7 +18,7 @@ local _ = require("nvim-treesitter.configs").setup {
   highlight = {
     enable = true,
     use_languagetree = false,
-    -- disable = { "json" },
+    disable = { "json"},
   },
   indent = {
       enable = true,

@@ -1,106 +1,36 @@
-*faceName: Public Sans
-XTerm*faceSize: 11.2
-XTerm*vt100.scaleHeight: 1.10
+*faceSize: 11.10
+! XTerm*vt100.scaleHeight: 0.8
 *multiClickTime: 300
 *international: true
 Xcursor.theme: default
-Xcursor.size:  16       !  32, 48 or 64 may also be good values
+Xcursor.size:  32       !  32, 48 or 64 may also be good values
 
 ! Xft settings ---------------------------------------------------------------
 
-Xft.dpi: 120
-Xft.lcdfilter: lcddefault
-Xft.antialias:  true
-Xft.autohint:   false
-Xft.hinting:    true
-Xft.hintstyle:  hintfull
+! Xft.dpi: 138
+
+! Better font rendering.
+Xft.antialias: 1
+Xft.hinting: 1
 Xft.rgba: rgb
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
 
 ! xterm ----------------------------------------------------------------------
-xterm*geometry:           100x25
-xterm*dynamicColors:      true
-xterm*utf8:               1
-xterm*eightBitInput:      true
-xterm*saveLines:          12000
-xterm*scrollTtyKeypress:  true
-xterm*scrollTtyOutput:    false
-xterm*jumpScroll:         true
-xterm*multiScroll:        true
-xterm*toolBar:            false
-xterm*termName:           xterm-256color
-/* xterm*faceName:           JetBrains Mono NL */
-xterm*faceName:           JetBrains Mono NL
+! xterm*geometry:           180x20
+! xterm*dynamicColors:      true
+! xterm*utf8:               1
+! xterm*eightBitInput:      true
+! xterm*saveLines:          12000
+! xterm*scrollTtyKeypress:  true
+! xterm*scrollTtyOutput:    false
+! xterm*jumpScroll:         true
+! xterm*multiScroll:        true
+! xterm*toolBar:            false
+! xterm*termName:           xterm-256color
+! xterm*backarrowKey:       TRUE
+xterm*faceName:           Hack Nerd Font
 
-!Gruvbox
-! hard contrast: *background: #1d2021
-*background: #1d2021
-! soft contrast: *background: #32302f
-*foreground: #ebdbb2
-! Black + DarkGrey
-*color0:  #282828
-*color8:  #928374
-! DarkRed + Red
-*color1:  #cc241d
-*color9:  #fb4934
-! DarkGreen + Green
-*color2:  #98971a
-*color10: #b8bb26
-! DarkYellow + Yellow
-*color3:  #d79921
-*color11: #fabd2f
-! DarkBlue + Blue
-*color4:  #458588
-*color12: #83a598
-! DarkMagenta + Magenta
-*color5:  #b16286
-*color13: #d3869b
-! DarkCyan + Cyan
-*color6:  #689d6a
-*color14: #8ec07c
-! LightGrey + White
-*color7:  #a89984
-*color15: #ebdbb2
-
-!Gruvbox end
-
-!Tokyo Night theme
-! general
-/* *foreground: #c0caf5 */
-/* *background: #24283b */
-/* *cursorColor: #a9b1d6 */
-
-/* ! terminal padding color */
-/* *borderColor: #1a1b26 */
-
-/* ! black */
-/* *color0: #1a1b26 */
-/* *color8: #4e5173 */
-
-/* ! red */
-/* *color1: #F7768E */
-/* *color9: #F7768E */
-
-/* ! green */
-/* *color2: #9ECE6A */
-/* *color10: #9ECE6A */
-
-/* ! yellow */
-/* *color3: #E0AF68 */
-/* *color11: #E0AF68 */
-
-/* ! blue */
-/* *color4: #7AA2F7 */
-/* *color12: #7AA2F7 */
-
-/* ! magenta */
-/* *color5: #9a7ecc */
-/* *color13: #9a7ecc */
-
-/* ! cyan */
-/* *color6: #4abaaf */
-/* *color14: #4abaaf */
-
-/* ! white */
-/* *color7: #acb0d0 */
-/* *color15: #acb0d0 */
-/* ! Tokyo Night theme ends */
+XTerm*vt100.translations: #override \
+    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)

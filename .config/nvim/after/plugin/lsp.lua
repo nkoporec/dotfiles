@@ -100,6 +100,31 @@ require("lspconfig").gopls.setup({
 --         enable = true,
 --   }
 -- })
+--
+
+-- Inlay hints
+require("lsp-inlayhints").setup();
+
+-- Custom servers.
+local configs = require 'lspconfig.configs'
+local lspconfig = require 'lspconfig'
+if not configs.composer_lsp then
+ configs.composer_lsp = {
+   default_config = {
+     cmd = {'composer_lsp'},
+     filetypes = {'json'},
+     root_dir = function(pattern)
+      local cwd = vim.loop.cwd()
+      local root = lspconfig.util.root_pattern('composer.json', '.git')(pattern)
+
+      -- prefer cwd if root is a descendant
+      return lspconfig.util.path.is_descendant(cwd, root) and cwd or root
+     end,
+     settings = {},
+   },
+ }
+end
+lspconfig.composer_lsp.setup{}
 
 -- Keymaps
 nnoremap("gd", function() vim.lsp.buf.definition() end)

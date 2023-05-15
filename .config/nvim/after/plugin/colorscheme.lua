@@ -1,27 +1,34 @@
 vim.opt.termguicolors = true
 
-vim.g.gruvbox_contrast_dark = "hard"
-
--- Check if this is needed.
-require("colorbuddy").colorscheme "gruvbox"
+require("colorbuddy").colorscheme "hybrid"
 require("colorizer").setup()
 
-local c = require("colorbuddy.color").colors
-local Group = require("colorbuddy.group").Group
-local g = require("colorbuddy.group").groups
-local s = require("colorbuddy.style").styles
+local Color, colors, Group, groups, styles = require('colorbuddy').setup()
 
-Group.new("GoTestSuccess", c.green, nil, s.bold)
-Group.new("GoTestFail", c.red, nil, s.bold)
+Color.new('white', '#b1b8b8');
 
--- Group.new('Keyword', c.purple, nil, nil)
--- vim.cmd [[highlight WinSeparator guifg=#4e545c guibg=None]]
-Group.new("WinSeparator", nil, nil)
+-- Custom colors 
+Color.new('white', '#b1b8b8');
+Color.new("purple", '#b294bb');
+Color.new("gold", '#f0c674');
+Color.new("aqua", '#8abeb7');
+Color.new("blue", '#73a6ba');
+Color.new("green", '#749590');
 
-Group.new("InjectedLanguage", nil, g.Normal.bg:dark())
-
-Group.new("CmpItemAbbr", g.Comment)
-Group.new("CmpItemAbbrDeprecated", g.Error)
-Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
-Group.new("CmpItemKind", g.Special)
-Group.new("CmpItemMenu", g.NonText)
+--
+--
+Group.new("@variable", colors.white);
+Group.new("@punctuation.bracket", colors.white);
+Group.new("@constructor", colors.purple);
+Group.new("@keyword", colors.gold);
+Group.new("@function", colors.aqua);
+Group.new("@field", colors.white);
+Group.new("@function.macro", colors.blue);
+Group.new("@namespace", colors.blue);
+-- Group.new("@type.qualifier", colors.gold);
+-- Group.new("Type", colors.purple);
+-- Group.new("Delimiter", colors.white);
+-- Group.new("Keyword", colors.gold);
+-- Group.new("Function", colors.aqua);
+-- Group.new("SpecialChar", colors.purple);
+-- Group.new("phpMethods", colors.gold);

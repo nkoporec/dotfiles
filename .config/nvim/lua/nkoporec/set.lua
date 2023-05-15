@@ -1,9 +1,9 @@
 vim.opt.guicursor = ""
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
-
 vim.opt.errorbells = false
+
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -29,6 +29,8 @@ vim.opt.cursorline = true
 vim.opt.exrc = true;
 vim.opt.secure = true;
 
+vim.opt.backspace =[[indent,eol,start]];
+
 vim.opt.mouse = a;
 
 vim.opt.termguicolors = true
@@ -40,6 +42,9 @@ vim.opt.isfname:append("@-@")
 -- Hide statusline
 vim.opt.laststatus = 0
 vim.opt.showmode = false
+
+-- Dont highlight matching params.
+vim.g.loaded_matchparen = false
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1

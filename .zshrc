@@ -80,7 +80,7 @@ plugins=(
   tmux
 )
 
-# ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=true
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 source $ZSH/oh-my-zsh.sh
 
@@ -116,6 +116,19 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 
+# Base16
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         source "$BASE16_SHELL/profile_helper.sh"
+#         
+
+# Fix backspace in xterm
+stty erase ^H
+
+# starship
+eval "$(starship init zsh)"
+
 # Autostart
 neofetch
 
@@ -129,7 +142,16 @@ alias open="thunar"
 alias lg="lazygit"
 alias ttx="tmuxinator"
 
+# Custom env vars
+ export COMPOSER_LSP_LOG="/home/nkoporec/personal/composer_lsp/log4rs.yaml"
+
 # BEGIN SNIPPET: Platform.sh CLI configuration
 HOME=${HOME:-'/home/nkoporec'}
 export PATH="$HOME/"'.platformsh/bin':"$PATH"
 if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+

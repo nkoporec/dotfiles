@@ -8,6 +8,7 @@
 /.vimspector.json
 /.local.vimrc
 /.vimrc.lua
+local.services.yml
 
 # ddev files
 /.ddev

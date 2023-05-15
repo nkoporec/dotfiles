@@ -2,6 +2,31 @@
 local Remap = require("nkoporec.keymap")
 local nnoremap = Remap.nnoremap
 
+require('telescope').setup{
+  pickers = {
+    find_files = {
+      theme = "ivy",
+      disable_devicons = true
+    },
+    grep_string = {
+      theme = "ivy",
+      disable_devicons = true
+    },
+    live_grep = {
+      theme = "ivy",
+      disable_devicons = true
+    },
+    buffers = {
+      theme = "ivy",
+      disable_devicons = true
+    },
+    git_branches = {
+      theme = "ivy",
+      disable_devicons = true
+    }
+  },
+}
+
 nnoremap("<C-p>", ":Telescope")
 nnoremap("<leader>s", function()
     require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})
