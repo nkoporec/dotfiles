@@ -21,6 +21,9 @@ return require("packer").startup(function()
     use({ "simrat39/rust-tools.nvim" })
     use({ "lvimuser/lsp-inlayhints.nvim" })
     use({ "rust-lang/rust.vim" })
+    use {
+        "williamboman/mason.nvim",
+    }
 
     
     -- Language tooling

@@ -12,7 +12,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:JetBrainsMonoNF 8
+font pango:JetBrainsMonoNF 12
 
 # GET DEM BORDERS OUT OF HEREc:w
 #
@@ -33,11 +33,11 @@ for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4
 
 #hide_edge_borders both
 for_window [class="^.*"] border pixel 0
-gaps inner 20
-gaps outer 0
+#gaps inner 20
+#gaps outer 0
 
 # borders
-border_radius 15
+#border_radius 15
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -185,6 +185,7 @@ exec --no-startup-id xset r rate 110 90
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id copyq
+exec --no-startup-id /usr/bin/setxkbmap -option "caps:escape"
 exec --no-startup-id flameshot
 exec --no-startup-id xrdb ~/.Xresources
 # exec --no-startup-id `sleep 10; redshift-gtk -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | awk 'OFS=":" {print $3,$5}' | tr -d ',}')`
@@ -195,7 +196,7 @@ exec --no-startup-id xinput --set-prop 8 'libinput Accel Speed' 0.6
 # ------------------------------------------
 # automatic set focus new window if it opens on another workspace then the current:
 for_window [class=alacritty] focus
-for_window [class=(?i)firefox-developer-edition] focus
+for_window [class=(?i)firefox] focus
 for_window [class=(?i)qutebrowser] focus
 for_window [class=(?i)brave] focus
 for_window [class=(?i)librewolf] focus
@@ -233,21 +234,21 @@ bindsym $mod+b workspace prev
 
 bindsym $mod+d exec rofi -modi drun -show drun -display-drun "Apps : " -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar \
-                -show-icons -theme "dmenu"
+                -show-icons -theme "Pop-Dark" -font "JetBrainsMonoNF 14"
 
 #
 # ## rofi bindings for window menu (two bindings F10/$mod+t)
 
 bindsym $mod+t exec rofi -show window -display-window "Window : " -line-padding 4 \
                 -lines 10 -padding 50 -hide-scrollbar \
-                -show-icons -theme "dmenu"
+                -show-icons -theme "Pop-Dark" -font "JetBrainsMonoNF 14"
 
 
 ## lets see how i like dmenu.
 # bindsym $mod+d exec --no-startup-id dmenu_run
 
 ## App shortcuts
-bindsym $mod+w exec /usr/bin/firefox-developer-edition
+bindsym $mod+w exec /usr/bin/firefox
 # bindsym $mod+w exec /usr/bin/qutebrowser
 # bindsym $mod+w exec /usr/bin/brave-nightly --force-device-scale-factor=1.25
 # bindsym $mod+w exec /usr/bin/librewolf --ProfileManager

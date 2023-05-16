@@ -5,6 +5,9 @@ local inoremap = Remap.inoremap
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- Mason
+require("mason").setup()
+
 -- Setup nvim-cmp.
 local cmp = require("cmp")
 local source_mapping = {

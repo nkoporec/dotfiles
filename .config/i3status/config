@@ -1,3 +1,6 @@
+
+
+
 # i3status configuration file.
 # see "man i3status" for documentation.
 
@@ -13,6 +16,7 @@ general {
 
 order += "disk /"
 order += "load"
+order += "battery 0"
 order += "tztime local"
 
 ethernet eth0 {
@@ -31,4 +35,16 @@ load {
 
 disk "/" {
         format = "%avail"
+}
+
+battery 0 {
+	last_full_capacity = true
+        format = "%status %percentage"
+        format_down = "  No Battery"
+        status_chr = "  Charging"
+        status_bat = "  Battery"
+        status_unk = "  Unknown"
+        status_full = "  Charged"
+        path = "/sys/class/power_supply/BAT0/uevent"
+        low_threshold = 10
 }
