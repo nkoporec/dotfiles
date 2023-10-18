@@ -2,7 +2,6 @@ local Job = require "plenary.job"
 local Remap = require("nkoporec.keymap")
 local nnoremap = Remap.nnoremap
 
-
 -- Rust
 local rust_group = vim.api.nvim_create_augroup("CustomRustCmds", { clear = true })
 -- vim.api.nvim_create_autocmd("BufWritePost", {
@@ -35,8 +34,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "*.php,*.module,*.install,*.profile"
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-    group = php_group,
-    command = "Neomake",
-    pattern = "*.php,*.module,*.install,*.profile"
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     group = php_group,
+--     command = "Neomake",
+--     pattern = "*.php,*.module,*.install,*.profile"
+-- })

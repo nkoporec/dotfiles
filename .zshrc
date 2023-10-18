@@ -80,7 +80,7 @@ plugins=(
   tmux
 )
 
-ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=false
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 source $ZSH/oh-my-zsh.sh
 
@@ -127,7 +127,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 stty erase ^H
 
 # starship
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 # Autostart
 neofetch

@@ -54,7 +54,7 @@ require("lspconfig").svelte.setup({
     autostart = true,
 })
 
-require'lspconfig'.sumneko_lua.setup {
+require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
@@ -102,9 +102,6 @@ require("lspconfig").gopls.setup({
 -- })
 --
 
--- Inlay hints
-require("lsp-inlayhints").setup();
-
 -- Custom servers.
 local configs = require 'lspconfig.configs'
 local lspconfig = require 'lspconfig'
@@ -125,6 +122,23 @@ if not configs.composer_lsp then
  }
 end
 lspconfig.composer_lsp.setup{}
+
+if not configs.checkmate then
+ configs.checkmate = {
+   default_config = {
+     cmd = {'/home/nkoporec/personal/checkmate/target/debug/checkmate-lsp', '--debug'},
+     root_dir = function(pattern)
+      local cwd = vim.loop.cwd()
+      local root = lspconfig.util.root_pattern('composer.json', '.git')(pattern)
+
+      -- prefer cwd if root is a descendant
+      return lspconfig.util.path.is_descendant(cwd, root) and cwd or root
+     end,
+     settings = {},
+   },
+ }
+end
+lspconfig.checkmate.setup{}
 
 -- Keymaps
 nnoremap("gd", function() vim.lsp.buf.definition() end)

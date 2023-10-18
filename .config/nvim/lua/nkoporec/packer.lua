@@ -3,13 +3,22 @@ return require("packer").startup(function()
     use("wbthomason/packer.nvim")
 
     -- UI
-    -- use("tjdevries/cyclist.vim")
+    use("tjdevries/cyclist.vim")
     use("kyazdani42/nvim-web-devicons")
     use("tjdevries/gruvbuddy.nvim")
     use("tjdevries/colorbuddy.nvim")
     use("chriskempson/base16-vim")
     use("norcalli/nvim-colorizer.lua")
     use("w0ng/vim-hybrid")
+    use {
+      'j-hui/fidget.nvim',
+      tag = 'legacy',
+    }
+    use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
 
     -- LSP
     use("neovim/nvim-lspconfig")
@@ -19,7 +28,7 @@ return require("packer").startup(function()
     use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
     use({ "simrat39/rust-tools.nvim" })
-    use({ "lvimuser/lsp-inlayhints.nvim" })
+    -- use({ "lvimuser/lsp-inlayhints.nvim" })
     use({ "rust-lang/rust.vim" })
 
     
@@ -32,10 +41,10 @@ return require("packer").startup(function()
     -- File managment
     use("nvim-telescope/telescope.nvim")
     use("tpope/vim-fugitive")
-    -- use("junegunn/fzf.vim")
+    use("junegunn/fzf.vim")
 
     -- Colorschemes
-    use("gruvbox-community/gruvbox")
+    -- use("gruvbox-community/gruvbox")
 
     -- Other things
     use("mbbill/undotree")
@@ -51,4 +60,8 @@ return require("packer").startup(function()
     -- Helpers
     use("nvim-lua/plenary.nvim")
     use("nvim-lua/popup.nvim")
+
+    -- Temp
+    use("takac/vim-hardtime")
+    use("jonatan-branting/nvim-better-n")
 end)
