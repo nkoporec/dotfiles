@@ -9,17 +9,17 @@ local nmap = Remap.nmap
 local vmap = Remap.vmap
 
 -- UndotreeShow
-nnoremap("<leader>u", ":UndotreeShow<CR>")
+nnoremap("<leader>u", ":UndotreeToggle<CR>")
 
 -- Move selected lines up/down
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
--- Better copying and pasting
-xnoremap("<leader>p", "\"_dP")
-nnoremap("<leader>y", "\"+y")
-vnoremap("<leader>y", "\"+y")
-nmap("<leader>Y", "\"+Y")
+-- No registers, use system clipboard all the time.
+xnoremap("p", "\"_dP")
+nnoremap("y", "\"+y")
+vnoremap("y", "\"+y")
+nmap("Y", "\"+Y")
 
 -- Beter split movements
 nnoremap("<leader>h", "<C-w>h");

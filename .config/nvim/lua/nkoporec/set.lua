@@ -1,5 +1,3 @@
-vim.opt.guicursor = ""
-
 vim.opt.errorbells = false
 
 vim.opt.number = true
@@ -61,6 +59,9 @@ vim.opt.completeopt = menu,menuone,noselect
 
 -- Fix cursor
 vim.opt.guicursor="n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
+
+-- Width column
+vim.cmd[[set colorcolumn=80]]
 
 -- Hardtime
 -- vim.g.hardtime_default_on = 1

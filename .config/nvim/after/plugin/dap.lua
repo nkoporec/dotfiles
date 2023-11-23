@@ -18,7 +18,7 @@ dap.configurations.php = {
     name = 'Listen for Xdebug',
     port = 9003,
     log = true,
-    stopOnEntry = true,
+    stopOnEntry = false,
     serverSourceRoot = '/var/www/html',
     localSourceRoot = '${workspaceFolder}',
     xdebugSettings = {
@@ -61,15 +61,7 @@ dapui.setup({
       },
       size = 60, -- 40 columns
       position = "left",
-    },
-    {
-      elements = {
-        "repl",
-        "console",
-      },
-      size = 0.25, -- 25% of total lines
-      position = "bottom",
-    },
+    }
   },
   controls = {
     -- Requires Neovim nightly (or 0.8 when released)

@@ -81,64 +81,9 @@ require("lspconfig").cssls.setup({
     autostart = true,
 })
 
-require("lspconfig").gopls.setup({
+require("lspconfig").rust_analyzer.setup({
     autostart = true,
-	cmd = { "gopls", "serve" },
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = true,
-			},
-			staticcheck = true,
-		},
-	},
 })
-
--- Configured by rust-tools.
--- require("lspconfig").rust_analyzer.setup({
---   checkOnSave = {
---         enable = true,
---   }
--- })
---
-
--- Custom servers.
-local configs = require 'lspconfig.configs'
-local lspconfig = require 'lspconfig'
-if not configs.composer_lsp then
- configs.composer_lsp = {
-   default_config = {
-     cmd = {'composer_lsp'},
-     filetypes = {'json'},
-     root_dir = function(pattern)
-      local cwd = vim.loop.cwd()
-      local root = lspconfig.util.root_pattern('composer.json', '.git')(pattern)
-
-      -- prefer cwd if root is a descendant
-      return lspconfig.util.path.is_descendant(cwd, root) and cwd or root
-     end,
-     settings = {},
-   },
- }
-end
-lspconfig.composer_lsp.setup{}
-
-if not configs.checkmate then
- configs.checkmate = {
-   default_config = {
-     cmd = {'/home/nkoporec/personal/checkmate/target/debug/checkmate-lsp', '--debug'},
-     root_dir = function(pattern)
-      local cwd = vim.loop.cwd()
-      local root = lspconfig.util.root_pattern('composer.json', '.git')(pattern)
-
-      -- prefer cwd if root is a descendant
-      return lspconfig.util.path.is_descendant(cwd, root) and cwd or root
-     end,
-     settings = {},
-   },
- }
-end
-lspconfig.checkmate.setup{}
 
 -- Keymaps
 nnoremap("gd", function() vim.lsp.buf.definition() end)

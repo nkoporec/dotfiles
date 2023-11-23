@@ -8,7 +8,6 @@ local _ = require("nvim-treesitter.configs").setup {
     "markdown",
     "python",
     "query",
-    "racket",
     "rust",
     "toml",
     "tsx",
@@ -18,10 +17,10 @@ local _ = require("nvim-treesitter.configs").setup {
   highlight = {
     enable = true,
     use_languagetree = false,
-    disable = { "json"},
+    disable = { "json", "lua"},
   },
   indent = {
       enable = true,
-      disable = {"php"}
+      -- disable = {"php"}
   }
 }
